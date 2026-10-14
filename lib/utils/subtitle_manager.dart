@@ -14,6 +14,8 @@ import 'package:nipaplay/services/emby_track_application.dart' as emby_tracks;
 import 'package:nipaplay/utils/media_source_utils.dart';
 import 'package:nipaplay/utils/subtitle_file_utils.dart';
 import 'package:nipaplay/utils/subtitle_language_utils.dart';
+import 'package:nipaplay/services/web_subtitle_service.dart';
+import 'package:nipaplay/services/web_ass_subtitle_renderer.dart';
 
 /// 字幕管理器类，负责处理与字幕相关的所有功能
 class SubtitleManager extends ChangeNotifier {
@@ -259,6 +261,23 @@ class SubtitleManager extends ChangeNotifier {
   }
 
   // 获取已缓存的字幕内容
+  /// Activate server-decoded cues through the existing Flutter text overlay.
+  void activateParsedSubtitle(String path, List<Map<String, dynamic>> cues,
+      {required String displayName}) {
+    ++_subtitleLoadToken;
+    _subtitleCache[path] = [for (final cue in cues) SubtitleEntry(
+      startTimeMs: (cue['startTimeMs'] as num).toInt(),
+      endTimeMs: (cue['endTimeMs'] as num).toInt(), content: cue['content'] as String,
+      style: cue['style']?.toString() ?? 'Default')];
+    _currentExternalSubtitlePath = path;
+    _activeExternalSubtitlePaths..clear()..add(path);
+    _pathDisplayState.putIfAbsent(path, _defaultDisplayState);
+    registerPathDisplayName(path, displayName);
+    updateSubtitleTrackInfo('external_subtitle', {
+      'path': path, 'title': displayName, 'isActive': true, 'isManualSet': true});
+    notifyListeners();
+  }
+
   List<dynamic>? getCachedSubtitle(String path) {
     return _subtitleCache[path];
   }
@@ -934,7 +953,7 @@ class SubtitleManager extends ChangeNotifier {
   bool _shouldFixExternalSubtitleEncoding() =>
       !kIsWeb && (_isMdkKernel() || _isMediaKitKernel());
   bool _shouldRenderExternalSubtitleInApp(String path) {
-    if (kIsWeb) return false;
+    if (kIsWeb) return const ['.srt', '.vtt', '.ass', '.ssa'].contains(p.extension(path).toLowerCase());
 
     final extension = p.extension(path).toLowerCase();
     // SRT/VTT 无特效，全平台 App 内叠层渲染（与内核无关）：
@@ -1356,10 +1375,48 @@ class SubtitleManager extends ChangeNotifier {
     setExternalSubtitle(path, isManualSetting: true);
   }
 
+  /// Automatic and manual Web selection share the same subtitle renderer.
+  Future<void> activateWebSubtitleTrack(String videoPath,
+      Map<String, dynamic> track) async {
+    final path = Uri.tryParse(videoPath)?.queryParameters['path'];
+    if (path == null) throw StateError('当前媒体源尚未提供 Web 字幕接口');
+    final token = ++_subtitleLoadToken;
+    bool isCurrent() => token == _subtitleLoadToken &&
+        _currentVideoPath == videoPath;
+    if (WebSubtitleService.isAssTrack(track)) {
+      final content = await WebSubtitleService.assContent(path, track);
+      if (!isCurrent()) return;
+      clearExternalSubtitle();
+      await WebAssSubtitleRenderer.attach(content);
+    } else {
+      final entries = await WebSubtitleService.cues(path, track);
+      if (!isCurrent()) return;
+      if (entries.isEmpty) throw StateError('字幕没有可显示的内容');
+      await WebAssSubtitleRenderer.detach();
+      if (!isCurrent()) return;
+      activateParsedSubtitle(WebSubtitleService.cachePath(track), entries,
+          displayName: track['name'].toString());
+    }
+  }
+
   // 自动检测并加载同名字幕文件
   Future<void> autoDetectAndLoadSubtitle(String videoPath) async {
     if (kIsWeb) {
-      debugPrint('SubtitleManager: Web平台跳过自动检测字幕文件');
+      final path = Uri.tryParse(videoPath)?.queryParameters['path'];
+      if (path == null) return;
+      final token = _subtitleLoadToken;
+      try {
+        final tracks = await WebSubtitleService.tracks(path);
+        if (tracks.isEmpty || token != _subtitleLoadToken || _currentVideoPath != videoPath) return;
+        final track = tracks.firstWhere(
+          (t) => t['name'].toString().toLowerCase().contains('.default.'),
+          orElse: () => tracks.firstWhere(
+            (t) => getSubtitleLanguageName(t['name'].toString()) == '简体中文',
+            orElse: () => tracks.first));
+        await activateWebSubtitleTrack(videoPath, track);
+      } catch (e) {
+        debugPrint('SubtitleManager: Web 自动字幕加载失败: $e');
+      }
       return;
     }
     if (MediaSourceUtils.isContentUri(videoPath)) {

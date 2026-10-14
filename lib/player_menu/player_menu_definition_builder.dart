@@ -1,4 +1,5 @@
 import 'package:nipaplay/player_menu/player_menu_models.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PlayerMenuDefinitionBuilder {
   final PlayerMenuContext context;
@@ -27,7 +28,7 @@ class PlayerMenuDefinitionBuilder {
         icon: PlayerMenuIconToken.subtitles,
         title: '字幕轨道',
         visibilityPredicate: (ctx) =>
-            ctx.supportsAdvancedTracks && ctx.hasVideo,
+            (ctx.supportsAdvancedTracks || kIsWeb) && ctx.hasVideo,
       ),
       PlayerMenuItemDefinition(
         paneId: PlayerMenuPaneId.subtitleList,

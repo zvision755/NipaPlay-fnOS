@@ -740,6 +740,10 @@ class SharedRemoteLibraryProvider extends ChangeNotifier {
     if (host == null) {
       throw Exception('未选择远程媒体库');
     }
+    if (kIsWeb && episode.originalFilePath?.isNotEmpty == true &&
+        !episode.originalFilePath!.contains('://')) {
+      return buildRemoteFileStreamUri(episode.originalFilePath!);
+    }
     final streamPath = episode.streamPath.trim();
     if (streamPath.isEmpty) {
       throw Exception('该剧集缺少可用的播放地址');
@@ -1707,7 +1711,8 @@ class SharedRemoteLibraryProvider extends ChangeNotifier {
       throw Exception('该文件不是可播放媒体');
     }
     return Uri.parse('${host.baseUrl}/api/media/local/manage/stream')
-        .replace(queryParameters: {'path': filePath});
+        .replace(queryParameters: {'path': filePath,
+          if (kIsWeb && filePath.toLowerCase().endsWith('.avi')) 'web': '1'});
   }
 
   bool isRemoteFilePlayable(SharedRemoteFileEntry entry) {
@@ -1726,6 +1731,36 @@ class SharedRemoteLibraryProvider extends ChangeNotifier {
     }
     final extension = p.extension(target).toLowerCase();
     return _playableRemoteExtensions.contains(extension);
+  }
+
+  Future<int> saveBatchDanmakuMatch(Map<String, dynamic> result) async {
+    final host = activeHost;
+    if (host == null) throw StateError('本地媒体服务未连接');
+    final response = await _sendPostRequest(
+      Uri.parse('${host.baseUrl}/api/media/local/manage/batch_match'),
+      jsonBody: result, timeout: const Duration(seconds: 60));
+    final data = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    if (response.statusCode != 200 || data['success'] != true) {
+      throw StateError(data['message']?.toString() ?? '保存匹配失败');
+    }
+    await refreshLibrary(userInitiated: true);
+    await refreshManagement(userInitiated: true);
+    return (data['data']['matched'] as num).toInt();
+  }
+
+  Future<int> removeLocalAnime(int animeId) async {
+    final host = activeHost;
+    if (host == null) throw StateError('本地媒体服务未连接');
+    final response = await _sendPostRequest(
+      Uri.parse('${host.baseUrl}/api/media/local/manage/animes/$animeId/remove'),
+      jsonBody: const {}, timeout: const Duration(seconds: 30));
+    final data = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    if (response.statusCode != 200 || data['success'] != true) {
+      throw StateError(data['message']?.toString() ?? '移除番剧失败');
+    }
+    _episodeCache.remove(animeId);
+    await refreshLibrary(userInitiated: true);
+    return (data['data']['removed'] as num).toInt();
   }
 
   Future<void> addRemoteFolder({

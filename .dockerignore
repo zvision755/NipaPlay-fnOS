@@ -1,0 +1,17 @@
+.git
+**/.git
+.porting
+.dart_tool
+build
+assets/web
+node_modules
+**/node_modules
+.env
+.env.*
+test-media
+**/.DS_Store
+**/*.dylib
+**/*.dll
+**/*.so
+**/*.a
+**/build

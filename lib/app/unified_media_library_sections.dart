@@ -48,6 +48,7 @@ class MediaLibraryAvailability {
     required this.showSMBLibrary,
     required this.showSMBManagement,
     required this.showShared,
+    this.sharedIsLocalServer = false,
     required this.showDandanplay,
     required this.showJellyfin,
     required this.showEmby,
@@ -59,6 +60,7 @@ class MediaLibraryAvailability {
   final bool showSMBLibrary;
   final bool showSMBManagement;
   final bool showShared;
+  final bool sharedIsLocalServer;
   final bool showDandanplay;
   final bool showJellyfin;
   final bool showEmby;
@@ -124,15 +126,15 @@ List<UnifiedMediaLibrarySection> buildUnifiedMediaLibrarySections(
         source: UnifiedMediaLibrarySource.smb,
       ),
     if (availability.showShared) ...[
-      const UnifiedMediaLibrarySection(
+      UnifiedMediaLibrarySection(
         id: MediaLibrarySectionIds.shared,
-        label: '共享媒体库',
+        label: availability.sharedIsLocalServer ? '本地媒体库' : '共享媒体库',
         phoneSymbol: 'rectangle.stack.badge.person.crop',
         contentType: UnifiedMediaLibraryContentType.sharedCollection,
       ),
-      const UnifiedMediaLibrarySection(
+      UnifiedMediaLibrarySection(
         id: MediaLibrarySectionIds.sharedManagement,
-        label: '共享库管理',
+        label: availability.sharedIsLocalServer ? '本地库管理' : '共享库管理',
         phoneSymbol: 'person.2.badge.gearshape',
         contentType: UnifiedMediaLibraryContentType.sharedManagement,
       ),

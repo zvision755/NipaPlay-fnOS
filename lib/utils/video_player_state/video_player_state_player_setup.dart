@@ -390,6 +390,10 @@ extension VideoPlayerStatePlayerSetup on VideoPlayerState {
       debugPrint('VideoPlayerState: 准备流媒体URL: $resolvedActualPlayUrl');
     }
 
+    if (_currentVideoPath != videoPath) {
+      unawaited(WebAssSubtitleRenderer.detach());
+    }
+
     // 更新字幕管理器的视频路径
     _subtitleManager.setCurrentVideoPath(videoPath);
 
@@ -544,7 +548,8 @@ extension VideoPlayerStatePlayerSetup on VideoPlayerState {
       // 准备播放器
       mediaPrepareStarted = true;
       await player.prepare();
-      debugPrint('[PlayerSetup] prepare 完成 kernel=${player.getPlayerKernelName()} '
+      debugPrint(
+          '[PlayerSetup] prepare 完成 kernel=${player.getPlayerKernelName()} '
           'state=${player.state}');
       // 内核 setMedia+prepare 后通常自动进入播放（mdk/media_kit 默认）。
       debugPrint('[PlayerSetup] 媒体已 prepare，内核自动进入播放');

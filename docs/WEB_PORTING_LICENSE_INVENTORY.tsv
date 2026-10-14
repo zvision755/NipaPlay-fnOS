@@ -1,0 +1,263 @@
+package	direct_dependency	license_heading	license_file	status
+adaptive_platform_ui	true	MIT License	packages/adaptive_platform_ui/LICENSE	file located; review full terms and bundled binaries
+archive	false	The MIT License	.porting/pub-cache/hosted/pub.dev/archive-4.0.9/LICENSE	file located; review full terms and bundled binaries
+args	false	Copyright 2013, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/args-2.7.0/LICENSE	file located; review full terms and bundled binaries
+asn1lib	false	http://opensource.org/licenses/BSD-3-Clause	.porting/pub-cache/hosted/pub.dev/asn1lib-1.6.5/LICENSE	file located; review full terms and bundled binaries
+async	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/async-2.13.1/LICENSE	file located; review full terms and bundled binaries
+audioplayers	true	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers-6.8.1/LICENSE	file located; review full terms and bundled binaries
+audioplayers_android	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_android-5.3.0/LICENSE	file located; review full terms and bundled binaries
+audioplayers_darwin	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_darwin-6.5.0/LICENSE	file located; review full terms and bundled binaries
+audioplayers_linux	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_linux-4.3.0/LICENSE	file located; review full terms and bundled binaries
+audioplayers_platform_interface	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_platform_interface-7.2.0/LICENSE	file located; review full terms and bundled binaries
+audioplayers_web	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_web-5.3.0/LICENSE	file located; review full terms and bundled binaries
+audioplayers_windows	false	MIT License	.porting/pub-cache/hosted/pub.dev/audioplayers_windows-4.4.1/LICENSE	file located; review full terms and bundled binaries
+battery_plus	true	Copyright 2017 The Chromium Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/battery_plus-7.0.0/LICENSE	file located; review full terms and bundled binaries
+battery_plus_platform_interface	false	Copyright 2017 The Chromium Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/battery_plus_platform_interface-2.0.1/LICENSE	file located; review full terms and bundled binaries
+boolean_selector	false	Copyright 2016, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/boolean_selector-2.1.2/LICENSE	file located; review full terms and bundled binaries
+build_cli_annotations	false	MIT License	.porting/pub-cache/hosted/pub.dev/build_cli_annotations-2.1.1/LICENSE	file located; review full terms and bundled binaries
+cached_network_image	true	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/cached_network_image-3.4.1/LICENSE	file located; review full terms and bundled binaries
+cached_network_image_platform_interface	false	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/cached_network_image_platform_interface-4.1.1/LICENSE	file located; review full terms and bundled binaries
+cached_network_image_web	false	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/cached_network_image_web-1.3.1/LICENSE	file located; review full terms and bundled binaries
+characters	false	Copyright 2019, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/characters-1.4.1/LICENSE	file located; review full terms and bundled binaries
+charcode	false	Copyright 2014, the Dart project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/charcode-1.4.0/LICENSE	file located; review full terms and bundled binaries
+charset	true	Apache License	.porting/pub-cache/hosted/pub.dev/charset-2.0.1/LICENSE	file located; review full terms and bundled binaries
+checked_yaml	false	Copyright 2019, the Dart project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/checked_yaml-2.0.4/LICENSE	file located; review full terms and bundled binaries
+cli_util	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/cli_util-0.4.2/LICENSE	file located; review full terms and bundled binaries
+clock	false	Apache License	.porting/pub-cache/hosted/pub.dev/clock-1.1.2/LICENSE	file located; review full terms and bundled binaries
+collection	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/collection-1.19.1/LICENSE	file located; review full terms and bundled binaries
+console	false	```	.porting/pub-cache/hosted/pub.dev/console-4.1.0/LICENSE.md	file located; review full terms and bundled binaries
+convert	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/convert-3.1.2/LICENSE	file located; review full terms and bundled binaries
+cp949_codec	true	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/cp949_codec-1.0.2/LICENSE	file located; review full terms and bundled binaries
+cross_file	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/cross_file-0.3.5+2/LICENSE	file located; review full terms and bundled binaries
+crypto	true	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/crypto-3.0.7/LICENSE	file located; review full terms and bundled binaries
+cryptography	false	Apache License	.porting/pub-cache/hosted/pub.dev/cryptography-2.9.0/LICENSE	file located; review full terms and bundled binaries
+csslib	false	Copyright 2013, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/csslib-1.0.2/LICENSE	file located; review full terms and bundled binaries
+cupertino_icons	true	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/cupertino_icons-1.0.9/LICENSE	file located; review full terms and bundled binaries
+danmaku_canvas	true	MIT License	packages/danmaku_canvas/LICENSE	file located; review full terms and bundled binaries
+dart_ipc	true	MIT License	.porting/pub-cache/hosted/pub.dev/dart_ipc-1.0.1/LICENSE	file located; review full terms and bundled binaries
+dbus	false	Mozilla Public License Version 2.0	.porting/pub-cache/hosted/pub.dev/dbus-0.7.14/LICENSE	file located; review full terms and bundled binaries
+desktop_drop	true	Apache License	.porting/pub-cache/hosted/pub.dev/desktop_drop-0.6.1/LICENSE	file located; review full terms and bundled binaries
+desktop_multi_window	true	BSD 3-Clause License	packages/desktop_multi_window/LICENSE	file located; review full terms and bundled binaries
+dio	true	MIT License	.porting/pub-cache/hosted/pub.dev/dio-5.9.2/LICENSE	file located; review full terms and bundled binaries
+dio_web_adapter	false	MIT License	.porting/pub-cache/hosted/pub.dev/dio_web_adapter-2.1.2/LICENSE	file located; review full terms and bundled binaries
+dynamic_color	true	Apache License	.porting/pub-cache/hosted/pub.dev/dynamic_color-1.8.1/LICENSE	file located; review full terms and bundled binaries
+enough_convert	true	Mozilla Public License Version 2.0	.porting/pub-cache/hosted/pub.dev/enough_convert-1.6.0/LICENSE	file located; review full terms and bundled binaries
+equatable	false	MIT License	.porting/pub-cache/hosted/pub.dev/equatable-2.1.0/LICENSE	file located; review full terms and bundled binaries
+erika_flutter	true	Mozilla Public License Version 2.0	.porting/pub-cache/hosted/pub.dev/erika_flutter-0.2.1/LICENSE	file located; review full terms and bundled binaries
+fake_async	false	Apache License	.porting/pub-cache/hosted/pub.dev/fake_async-1.3.3/LICENSE	file located; review full terms and bundled binaries
+ffi	true	Copyright 2019, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/ffi-2.2.0/LICENSE	file located; review full terms and bundled binaries
+ffi_leak_tracker	false	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/ffi_leak_tracker-0.1.2/LICENSE	file located; review full terms and bundled binaries
+file	false	Copyright 2017, the Dart project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/file-7.0.1/LICENSE	file located; review full terms and bundled binaries
+file_selector	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector-1.1.0/LICENSE	file located; review full terms and bundled binaries
+file_selector_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_android-0.5.2+6/LICENSE	file located; review full terms and bundled binaries
+file_selector_ios	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_ios-0.5.3+4/LICENSE	file located; review full terms and bundled binaries
+file_selector_linux	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_linux-0.9.4/LICENSE	file located; review full terms and bundled binaries
+file_selector_macos	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_macos-0.9.5/LICENSE	file located; review full terms and bundled binaries
+file_selector_platform_interface	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_platform_interface-2.7.0/LICENSE	file located; review full terms and bundled binaries
+file_selector_web	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/file_selector_web-0.9.4+2/LICENSE	file located; review full terms and bundled binaries
+file_selector_windows	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+5/LICENSE	file located; review full terms and bundled binaries
+file_utils	false	Copyright (c) 2014, Andrew Mezoni	.porting/pub-cache/hosted/pub.dev/file_utils-1.0.1/LICENSE	file located; review full terms and bundled binaries
+fixnum	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/fixnum-1.1.1/LICENSE	file located; review full terms and bundled binaries
+fluent_ui	true	Copyright 2020 Bruno D'Luka	.porting/pub-cache/hosted/pub.dev/fluent_ui-4.16.0/LICENSE	file located; review full terms and bundled binaries
+flutter	true	Copyright 2014 The Flutter Authors. All rights reserved.	.porting/tools/flutter/packages/flutter/LICENSE	file located; review full terms and bundled binaries
+flutter_cache_manager	false	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/flutter_cache_manager-3.4.1/LICENSE	file located; review full terms and bundled binaries
+flutter_driver	false	unknown		requires manual review
+flutter_js	true	MIT License	.porting/pub-cache/hosted/pub.dev/flutter_js-0.8.7/LICENSE	file located; review full terms and bundled binaries
+flutter_launcher_icons	false	MIT License	.porting/pub-cache/hosted/pub.dev/flutter_launcher_icons-0.14.4/LICENSE	file located; review full terms and bundled binaries
+flutter_lints	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/flutter_lints-4.0.0/LICENSE	file located; review full terms and bundled binaries
+flutter_localizations	true	unknown		requires manual review
+flutter_markdown	true	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/flutter_markdown-0.7.7+1/LICENSE	file located; review full terms and bundled binaries
+flutter_plugin_android_lifecycle	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.34/LICENSE	file located; review full terms and bundled binaries
+flutter_rust_bridge	true	MIT License	.porting/pub-cache/hosted/pub.dev/flutter_rust_bridge-2.12.0/LICENSE	file located; review full terms and bundled binaries
+flutter_shaders	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/flutter_shaders-0.1.3/LICENSE	file located; review full terms and bundled binaries
+flutter_svg	true	Copyright (c) 2018 Dan Field	.porting/pub-cache/hosted/pub.dev/flutter_svg-2.3.0/LICENSE	file located; review full terms and bundled binaries
+flutter_test	false	unknown		requires manual review
+flutter_web_plugins	false	unknown		requires manual review
+fuchsia_remote_debug_protocol	false	unknown		requires manual review
+fvp	true	BSD-3-Clause License	third_party/fvp/LICENSE	file located; review full terms and bundled binaries
+get_it	false	MIT License	.porting/pub-cache/hosted/pub.dev/get_it-9.2.1/LICENSE	file located; review full terms and bundled binaries
+glassmorphism	true	Apache License	.porting/pub-cache/hosted/pub.dev/glassmorphism-3.0.0/LICENSE	file located; review full terms and bundled binaries
+globbing	false	Copyright (c) 2014, Andrew Mezoni	.porting/pub-cache/hosted/pub.dev/globbing-1.0.0/LICENSE	file located; review full terms and bundled binaries
+hotkey_manager	true	MIT License	.porting/pub-cache/hosted/pub.dev/hotkey_manager-0.2.3/LICENSE	file located; review full terms and bundled binaries
+hotkey_manager_linux	false	MIT License	.porting/pub-cache/hosted/pub.dev/hotkey_manager_linux-0.2.0/LICENSE	file located; review full terms and bundled binaries
+hotkey_manager_macos	false	MIT License	.porting/pub-cache/hosted/pub.dev/hotkey_manager_macos-0.2.0/LICENSE	file located; review full terms and bundled binaries
+hotkey_manager_platform_interface	false	MIT License	.porting/pub-cache/hosted/pub.dev/hotkey_manager_platform_interface-0.2.0/LICENSE	file located; review full terms and bundled binaries
+hotkey_manager_windows	false	MIT License	.porting/pub-cache/hosted/pub.dev/hotkey_manager_windows-0.2.0/LICENSE	file located; review full terms and bundled binaries
+html	false	Copyright (c) 2006-2012 The Authors	.porting/pub-cache/hosted/pub.dev/html-0.15.6/LICENSE	file located; review full terms and bundled binaries
+http	true	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/http-1.6.0/LICENSE	file located; review full terms and bundled binaries
+http_methods	false	Apache License	.porting/pub-cache/hosted/pub.dev/http_methods-1.1.1/LICENSE	file located; review full terms and bundled binaries
+http_parser	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/http_parser-4.1.2/LICENSE	file located; review full terms and bundled binaries
+hugeicons	true	# MIT License	.porting/pub-cache/hosted/pub.dev/hugeicons-0.0.11/LICENSE	file located; review full terms and bundled binaries
+image	true	The MIT License	.porting/pub-cache/hosted/pub.dev/image-4.8.0/LICENSE	file located; review full terms and bundled binaries
+image_picker	true	image_picker	.porting/pub-cache/hosted/pub.dev/image_picker-1.2.3/LICENSE	file located; review full terms and bundled binaries
+image_picker_android	false	image_picker	.porting/pub-cache/hosted/pub.dev/image_picker_android-0.8.13+17/LICENSE	file located; review full terms and bundled binaries
+image_picker_for_web	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/image_picker_for_web-3.1.1/LICENSE	file located; review full terms and bundled binaries
+image_picker_ios	false	image_picker	.porting/pub-cache/hosted/pub.dev/image_picker_ios-0.8.13+3/LICENSE	file located; review full terms and bundled binaries
+image_picker_linux	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/image_picker_linux-0.2.2/LICENSE	file located; review full terms and bundled binaries
+image_picker_macos	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/image_picker_macos-0.2.2+1/LICENSE	file located; review full terms and bundled binaries
+image_picker_platform_interface	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/image_picker_platform_interface-2.11.1/LICENSE	file located; review full terms and bundled binaries
+image_picker_windows	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/image_picker_windows-0.2.2/LICENSE	file located; review full terms and bundled binaries
+integration_test	false	unknown		requires manual review
+intl	true	Copyright 2013, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/intl-0.20.2/LICENSE	file located; review full terms and bundled binaries
+jni	false	Copyright 2022, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/jni-1.0.0/LICENSE	file located; review full terms and bundled binaries
+jni_flutter	false	Copyright 2026, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/jni_flutter-1.0.1/LICENSE	file located; review full terms and bundled binaries
+js	false	Copyright 2012, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/js-0.7.2/LICENSE	file located; review full terms and bundled binaries
+json_annotation	false	Copyright 2017, the Dart project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/json_annotation-4.12.0/LICENSE	file located; review full terms and bundled binaries
+kmbal_ionicons	true	MIT License	third_party/kmbal_ionicons/LICENSE	file located; review full terms and bundled binaries
+leak_tracker	false	Copyright 2022, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/leak_tracker-11.0.2/LICENSE	file located; review full terms and bundled binaries
+leak_tracker_flutter_testing	false	Copyright 2022, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.10/LICENSE	file located; review full terms and bundled binaries
+leak_tracker_testing	false	Copyright 2022, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/leak_tracker_testing-3.0.2/LICENSE	file located; review full terms and bundled binaries
+lints	false	Copyright 2021, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/lints-4.0.0/LICENSE	file located; review full terms and bundled binaries
+liquid_glass_widgets	true	MIT License	packages/liquid_glass_widgets/LICENSE	file located; review full terms and bundled binaries
+logging	false	Copyright 2013, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/logging-1.3.0/LICENSE	file located; review full terms and bundled binaries
+markdown	false	Copyright 2012, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/markdown-7.3.1/LICENSE	file located; review full terms and bundled binaries
+matcher	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/matcher-0.12.19/LICENSE	file located; review full terms and bundled binaries
+material_color_utilities	false	Apache License	.porting/pub-cache/hosted/pub.dev/material_color_utilities-0.13.0/LICENSE	file located; review full terms and bundled binaries
+math_expressions	false	MIT License	.porting/pub-cache/hosted/pub.dev/math_expressions-3.1.0/LICENSE	file located; review full terms and bundled binaries
+media_kit	true	MIT License	packages/media_kit/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_android_video	false	MIT License	third_party/media-kit-upstream/libs/android/media_kit_libs_android_video/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_ios_video	false	MIT License	third_party/media-kit-upstream/libs/ios/media_kit_libs_ios_video/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_linux	false	MIT License	third_party/media-kit-upstream/libs/linux/media_kit_libs_linux/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_macos_video	false	MIT License	third_party/media-kit-upstream/libs/macos/media_kit_libs_macos_video/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_video	true	MIT License	third_party/media-kit-upstream/libs/universal/media_kit_libs_video/LICENSE	file located; review full terms and bundled binaries
+media_kit_libs_windows_video	false	MIT License	third_party/media-kit-upstream/libs/windows/media_kit_libs_windows_video/LICENSE	file located; review full terms and bundled binaries
+media_kit_video	true	MIT License	packages/media_kit_video/LICENSE	file located; review full terms and bundled binaries
+menu_base	false	MIT License	.porting/pub-cache/hosted/pub.dev/menu_base-0.1.1/LICENSE	file located; review full terms and bundled binaries
+meta	false	Copyright 2016, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/meta-1.18.0/LICENSE	file located; review full terms and bundled binaries
+mime	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/mime-2.0.0/LICENSE	file located; review full terms and bundled binaries
+mobile_scanner	true	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/mobile_scanner-7.4.0/LICENSE	file located; review full terms and bundled binaries
+msix	false	MIT License	.porting/pub-cache/hosted/pub.dev/msix-3.16.13/LICENSE	file located; review full terms and bundled binaries
+mutex	false	Copyright (c) 2016, Hoylen Sue.	.porting/pub-cache/hosted/pub.dev/mutex-3.1.0/LICENSE	file located; review full terms and bundled binaries
+nested	false	MIT License	.porting/pub-cache/hosted/pub.dev/nested-1.0.0/LICENSE	file located; review full terms and bundled binaries
+nipaplay	false	MIT License	LICENSE	file located; review full terms and bundled binaries
+nipaplay_smb2	true	TODO: Add your license here.	packages/nipaplay_smb2/LICENSE	file located; review full terms and bundled binaries
+octo_image	false	MIT License	.porting/pub-cache/hosted/pub.dev/octo_image-2.1.0/LICENSE	file located; review full terms and bundled binaries
+package_config	false	Copyright 2019, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/package_config-2.2.0/LICENSE	file located; review full terms and bundled binaries
+package_info_plus	true	Copyright 2017 The Chromium Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/package_info_plus-10.2.1/LICENSE	file located; review full terms and bundled binaries
+package_info_plus_platform_interface	false	Copyright 2017 The Chromium Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/package_info_plus_platform_interface-4.1.0/LICENSE	file located; review full terms and bundled binaries
+package_info_plus_tvos	true	Copyright 2017 The Chromium Authors. All rights reserved.	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/package_info_plus_tvos/LICENSE	file located; review full terms and bundled binaries
+path	true	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/path-1.9.1/LICENSE	file located; review full terms and bundled binaries
+path_parsing	false	Copyright (c) 2018 Dan Field	.porting/pub-cache/hosted/pub.dev/path_parsing-1.1.0/LICENSE	file located; review full terms and bundled binaries
+path_provider	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/path_provider-2.1.6/LICENSE	file located; review full terms and bundled binaries
+path_provider_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/path_provider_android-2.3.1/LICENSE	file located; review full terms and bundled binaries
+path_provider_foundation	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/path_provider_foundation-2.5.1/LICENSE	file located; review full terms and bundled binaries
+path_provider_linux	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/LICENSE	file located; review full terms and bundled binaries
+path_provider_platform_interface	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.2/LICENSE	file located; review full terms and bundled binaries
+path_provider_tvos	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/path_provider_tvos/LICENSE	file located; review full terms and bundled binaries
+path_provider_windows	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/LICENSE	file located; review full terms and bundled binaries
+permission_handler	true	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler-12.0.3/LICENSE	file located; review full terms and bundled binaries
+permission_handler_android	false	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler_android-13.0.1/LICENSE	file located; review full terms and bundled binaries
+permission_handler_apple	false	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler_apple-9.4.9/LICENSE	file located; review full terms and bundled binaries
+permission_handler_html	false	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler_html-0.1.3+5/LICENSE	file located; review full terms and bundled binaries
+permission_handler_ohos	true	unknown		requires manual review
+permission_handler_platform_interface	false	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler_platform_interface-4.3.0/LICENSE	file located; review full terms and bundled binaries
+permission_handler_windows	false	MIT License	.porting/pub-cache/hosted/pub.dev/permission_handler_windows-0.2.1/LICENSE	file located; review full terms and bundled binaries
+petitparser	false	The MIT License	.porting/pub-cache/hosted/pub.dev/petitparser-7.0.2/LICENSE	file located; review full terms and bundled binaries
+pinyin	true	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/pinyin-3.3.0/LICENSE	file located; review full terms and bundled binaries
+platform	false	Copyright 2017, the Dart project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/platform-3.1.6/LICENSE	file located; review full terms and bundled binaries
+plugin_platform_interface	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/LICENSE	file located; review full terms and bundled binaries
+pointycastle	false	Copyright (c) 2000 - 2019 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)	.porting/pub-cache/hosted/pub.dev/pointycastle-3.9.1/LICENSE	file located; review full terms and bundled binaries
+posix	false	MIT License	.porting/pub-cache/hosted/pub.dev/posix-6.5.0/LICENSE	file located; review full terms and bundled binaries
+process	false	Copyright 2013, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/process-5.0.5/LICENSE	file located; review full terms and bundled binaries
+provider	true	MIT License	.porting/pub-cache/hosted/pub.dev/provider-6.1.5+1/LICENSE	file located; review full terms and bundled binaries
+pub_semver	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/pub_semver-2.2.0/LICENSE	file located; review full terms and bundled binaries
+qr	false	Copyright 2014, the Dart QR project authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/qr-3.0.2/LICENSE	file located; review full terms and bundled binaries
+qr_flutter	true	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/qr_flutter-4.1.0/LICENSE	file located; review full terms and bundled binaries
+recase	false	Copyright 2017 Keith Elliott	.porting/pub-cache/hosted/pub.dev/recase-4.1.0/LICENSE	file located; review full terms and bundled binaries
+rust_lib_nipaplay	true	unknown		requires manual review
+rxdart	false	Apache License	.porting/pub-cache/hosted/pub.dev/rxdart-0.28.0/LICENSE	file located; review full terms and bundled binaries
+safe_local_storage	false	MIT License	.porting/pub-cache/hosted/pub.dev/safe_local_storage-2.0.3/LICENSE	file located; review full terms and bundled binaries
+screen_brightness	true	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness-2.1.9/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_android	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_android-2.1.5/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_ios	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_ios-2.1.3/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_macos	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_macos-2.1.2/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_ohos	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_ohos-2.1.3/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_platform_interface	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_platform_interface-2.1.1/LICENSE	file located; review full terms and bundled binaries
+screen_brightness_windows	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_brightness_windows-2.1.1/LICENSE	file located; review full terms and bundled binaries
+screen_retriever	true	MIT License	.porting/pub-cache/hosted/pub.dev/screen_retriever-0.2.0/LICENSE	file located; review full terms and bundled binaries
+screen_retriever_linux	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_retriever_linux-0.2.0/LICENSE	file located; review full terms and bundled binaries
+screen_retriever_macos	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_retriever_macos-0.2.0/LICENSE	file located; review full terms and bundled binaries
+screen_retriever_platform_interface	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_retriever_platform_interface-0.2.0/LICENSE	file located; review full terms and bundled binaries
+screen_retriever_windows	false	MIT License	.porting/pub-cache/hosted/pub.dev/screen_retriever_windows-0.2.0/LICENSE	file located; review full terms and bundled binaries
+scroll_pos	false	MIT License	.porting/pub-cache/hosted/pub.dev/scroll_pos-0.5.0/LICENSE	file located; review full terms and bundled binaries
+shared_preferences	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/shared_preferences-2.5.5/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/shared_preferences_android-2.4.23/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_foundation	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.6/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_linux	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_platform_interface	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.4.2/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_tvos	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/shared_preferences_tvos/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_web	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/shared_preferences_web-2.4.3/LICENSE	file located; review full terms and bundled binaries
+shared_preferences_windows	false	Copyright 2013 The Flutter Authors. All rights reserved.	packages/shared_preferences_windows/LICENSE	file located; review full terms and bundled binaries
+shelf	true	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/shelf-1.4.2/LICENSE	file located; review full terms and bundled binaries
+shelf_cors_headers	true	Copyright © 2021 Leonard Kioi	.porting/pub-cache/hosted/pub.dev/shelf_cors_headers-0.1.5/LICENSE	file located; review full terms and bundled binaries
+shelf_router	true	Apache License	.porting/pub-cache/hosted/pub.dev/shelf_router-1.1.4/LICENSE	file located; review full terms and bundled binaries
+shelf_static	true	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/shelf_static-1.1.3/LICENSE	file located; review full terms and bundled binaries
+shortid	false	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/shortid-0.1.2/LICENSE	file located; review full terms and bundled binaries
+sky_engine	false	vulkan-validation-layers	.porting/tools/flutter/bin/cache/pkg/sky_engine/LICENSE	file located; review full terms and bundled binaries
+smb_connect	true	Apache License	third_party/smb_connect/LICENSE	file located; review full terms and bundled binaries
+source_span	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/source_span-1.10.2/LICENSE	file located; review full terms and bundled binaries
+sqflite	true	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite-2.4.2/LICENSE	file located; review full terms and bundled binaries
+sqflite_android	false	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite_android-2.4.2+2/LICENSE	file located; review full terms and bundled binaries
+sqflite_common	false	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite_common-2.5.6/LICENSE	file located; review full terms and bundled binaries
+sqflite_common_ffi	true	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite_common_ffi-2.3.7+1/LICENSE	file located; review full terms and bundled binaries
+sqflite_darwin	false	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite_darwin-2.4.2/LICENSE	file located; review full terms and bundled binaries
+sqflite_platform_interface	false	BSD 2-Clause License	.porting/pub-cache/hosted/pub.dev/sqflite_platform_interface-2.4.0/LICENSE	file located; review full terms and bundled binaries
+sqflite_tvos	true	BSD 2-Clause License	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/sqflite_tvos/LICENSE	file located; review full terms and bundled binaries
+sqlite3	false	MIT License	.porting/pub-cache/hosted/pub.dev/sqlite3-2.9.4/LICENSE	file located; review full terms and bundled binaries
+stack_trace	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/stack_trace-1.12.1/LICENSE	file located; review full terms and bundled binaries
+stream_channel	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/stream_channel-2.1.4/LICENSE	file located; review full terms and bundled binaries
+string_scanner	false	Copyright 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/string_scanner-1.4.1/LICENSE	file located; review full terms and bundled binaries
+sync_http	false	Copyright 2017, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/sync_http-0.3.1/LICENSE	file located; review full terms and bundled binaries
+synchronized	false	MIT License	.porting/pub-cache/hosted/pub.dev/synchronized-3.4.0/LICENSE	file located; review full terms and bundled binaries
+system_info2	true	Copyright (c) 2014, Andrew Mezoni	.porting/pub-cache/hosted/pub.dev/system_info2-3.0.2/LICENSE	file located; review full terms and bundled binaries
+term_glyph	false	Copyright 2017, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/term_glyph-1.2.2/LICENSE	file located; review full terms and bundled binaries
+test_api	false	Copyright 2018, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/test_api-0.7.11/LICENSE	file located; review full terms and bundled binaries
+transparent_image	true	The MIT License (MIT)	.porting/pub-cache/hosted/pub.dev/transparent_image-2.0.1/LICENSE	file located; review full terms and bundled binaries
+tray_manager	true	MIT License	.porting/pub-cache/hosted/pub.dev/tray_manager-0.5.2/LICENSE	file located; review full terms and bundled binaries
+typed_data	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/typed_data-1.4.0/LICENSE	file located; review full terms and bundled binaries
+uni_platform	false	MIT License	.porting/pub-cache/hosted/pub.dev/uni_platform-0.1.3/LICENSE	file located; review full terms and bundled binaries
+universal_gamepad	true	GNU GENERAL PUBLIC LICENSE	.porting/pub-cache/git/universal_gamepad-26e2c8a845a68c221f6ecb3876d1caa490a0f997/LICENSE	file located; review full terms and bundled binaries
+universal_html	true	Apache License	.porting/pub-cache/hosted/pub.dev/universal_html-2.3.0/LICENSE	file located; review full terms and bundled binaries
+universal_io	false	Apache License	.porting/pub-cache/hosted/pub.dev/universal_io-2.3.1/LICENSE	file located; review full terms and bundled binaries
+universal_platform	false	MIT License	.porting/pub-cache/hosted/pub.dev/universal_platform-1.1.0/LICENSE	file located; review full terms and bundled binaries
+upower	false	Mozilla Public License Version 2.0	.porting/pub-cache/hosted/pub.dev/upower-0.7.0/LICENSE	file located; review full terms and bundled binaries
+uri_parser	false	MIT License	.porting/pub-cache/hosted/pub.dev/uri_parser-3.0.2/LICENSE	file located; review full terms and bundled binaries
+url_launcher	true	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/url_launcher-6.3.2/LICENSE	file located; review full terms and bundled binaries
+url_launcher_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/url_launcher_android-6.3.29/LICENSE	file located; review full terms and bundled binaries
+url_launcher_ios	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/url_launcher_ios-6.3.6/LICENSE	file located; review full terms and bundled binaries
+url_launcher_linux	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/url_launcher_linux-3.2.2/LICENSE	file located; review full terms and bundled binaries
+url_launcher_macos	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/url_launcher_macos-3.2.5/LICENSE	file located; review full terms and bundled binaries
+url_launcher_platform_interface	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.2/LICENSE	file located; review full terms and bundled binaries
+url_launcher_web	false	url_launcher_web	.porting/pub-cache/hosted/pub.dev/url_launcher_web-2.4.1/LICENSE	file located; review full terms and bundled binaries
+url_launcher_windows	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/url_launcher_windows-3.1.5/LICENSE	file located; review full terms and bundled binaries
+uuid	true	Copyright (c) 2021 Yulian Kuncheff	.porting/pub-cache/hosted/pub.dev/uuid-4.5.3/LICENSE	file located; review full terms and bundled binaries
+vector_graphics	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/vector_graphics-1.2.2/LICENSE	file located; review full terms and bundled binaries
+vector_graphics_codec	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.13/LICENSE	file located; review full terms and bundled binaries
+vector_graphics_compiler	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/vector_graphics_compiler-1.2.3/LICENSE	file located; review full terms and bundled binaries
+vector_math	false	Copyright 2015, Google Inc. All rights reserved.	.porting/pub-cache/hosted/pub.dev/vector_math-2.2.0/LICENSE	file located; review full terms and bundled binaries
+video_player	true	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/video_player-2.9.5/LICENSE	file located; review full terms and bundled binaries
+video_player_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/video_player_android-2.9.5/LICENSE	file located; review full terms and bundled binaries
+video_player_avfoundation	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/video_player_avfoundation-2.8.9/LICENSE	file located; review full terms and bundled binaries
+video_player_platform_interface	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/video_player_platform_interface-6.7.0/LICENSE	file located; review full terms and bundled binaries
+video_player_tvos	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/video_player_tvos/LICENSE	file located; review full terms and bundled binaries
+video_player_web	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/video_player_web-2.4.0/LICENSE	file located; review full terms and bundled binaries
+vm_service	false	Copyright 2015, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/vm_service-15.2.0/LICENSE	file located; review full terms and bundled binaries
+volume_controller	true	MIT License	third_party/volume_controller/LICENSE	file located; review full terms and bundled binaries
+wakelock_plus	true	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/wakelock_plus-1.7.0/LICENSE	file located; review full terms and bundled binaries
+wakelock_plus_ohos	true	unknown		requires manual review
+wakelock_plus_platform_interface	false	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/wakelock_plus_platform_interface-1.6.0/LICENSE	file located; review full terms and bundled binaries
+wakelock_plus_tvos	true	BSD 3-Clause License	.porting/pub-cache/git/plugins-79dc1ac13b94d593e2361bf10b5ed8bdd225d3db/packages/wakelock_plus_tvos/LICENSE	file located; review full terms and bundled binaries
+web	false	Copyright 2023, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/web-1.1.1/LICENSE	file located; review full terms and bundled binaries
+webdav_client	true	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/webdav_client-1.2.2/LICENSE	file located; review full terms and bundled binaries
+webdriver	false	Apache License	.porting/pub-cache/hosted/pub.dev/webdriver-3.1.0/LICENSE	file located; review full terms and bundled binaries
+webview_flutter	true	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/webview_flutter-4.14.1/LICENSE	file located; review full terms and bundled binaries
+webview_flutter_android	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/webview_flutter_android-4.14.0/LICENSE	file located; review full terms and bundled binaries
+webview_flutter_platform_interface	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/webview_flutter_platform_interface-2.15.1/LICENSE	file located; review full terms and bundled binaries
+webview_flutter_wkwebview	false	Copyright 2013 The Flutter Authors	.porting/pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.26.0/LICENSE	file located; review full terms and bundled binaries
+win32	false	BSD 3-Clause License	.porting/pub-cache/hosted/pub.dev/win32-6.3.0/LICENSE	file located; review full terms and bundled binaries
+window_manager	true	MIT License	.porting/pub-cache/hosted/pub.dev/window_manager-0.4.3/LICENSE	file located; review full terms and bundled binaries
+xdg_directories	false	Copyright 2013 The Flutter Authors. All rights reserved.	.porting/pub-cache/hosted/pub.dev/xdg_directories-1.1.0/LICENSE	file located; review full terms and bundled binaries
+xml	true	The MIT License	.porting/pub-cache/hosted/pub.dev/xml-6.6.1/LICENSE	file located; review full terms and bundled binaries
+yaml	true	Copyright (c) 2014, the Dart project authors.	.porting/pub-cache/hosted/pub.dev/yaml-3.1.3/LICENSE	file located; review full terms and bundled binaries
+jassub	true	LGPL-2.1-or-later AND (FTL OR GPL-2.0-or-later) AND MIT AND MIT-Modern-Variant AND ISC AND NTP AND Zlib AND BSL-1.0	web/vendor/jassub/LICENSE; web/vendor/jassub/NOTICE.md	bundled browser ASS renderer; verify binary/font redistribution terms before release
+droid-sans-fallback	true	pending upstream font-license verification	assets/subfont.ttf; third_party/fvp/README.md	existing app asset reused for ASS CJK glyph coverage; verify original mpv-android font notice before fnOS release

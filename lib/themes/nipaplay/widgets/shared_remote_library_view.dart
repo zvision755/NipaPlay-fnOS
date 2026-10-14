@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'batch_danmaku_dialog.dart';
 import 'package:kmbal_ionicons/kmbal_ionicons.dart';
 import 'package:path/path.dart' as p;
 import 'package:provider/provider.dart';
@@ -1233,7 +1235,7 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
           itemCount: animeSummaries.length,
           itemBuilder: (context, index) {
             final anime = animeSummaries[index];
-            return HorizontalAnimeCard(
+            final card = HorizontalAnimeCard(
               key: ValueKey('shared_${anime.animeId}'),
               title:
                   anime.nameCn?.isNotEmpty == true ? anime.nameCn! : anime.name,
@@ -1242,6 +1244,19 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
               rating: null,
               onTap: () => _openEpisodeSheet(context, provider, anime),
             );
+            if (!kIsWeb) return card;
+            return Stack(children: [
+              Positioned.fill(right: 36, child: card),
+              Positioned(top: 0, right: 0, child: PopupMenuButton<String>(
+                tooltip: '番剧管理',
+                icon: const Icon(Icons.more_vert),
+                itemBuilder: (_) => const [
+                  PopupMenuItem(value: 'match', child: Text('重新匹配弹幕')),
+                  PopupMenuItem(value: 'remove', child: Text('从媒体库移除')),
+                ],
+                onSelected: (action) => _manageAnime(provider, anime, action),
+              )),
+            ]);
           },
         ),
       ),
@@ -1440,6 +1455,9 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
             textColor: textColor,
             secondaryTextColor: secondaryTextColor,
             onTap: () => _toggleRemoteDirectory(provider, entryPath),
+            trailingActions: kIsWeb ? [TextButton(
+              onPressed: () => _matchRemoteFolder(provider, entryPath),
+              child: const Text('批量匹配弹幕'))] : null,
           ),
         );
         if (expanded) {
@@ -1603,6 +1621,8 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
     bool hasHosts,
     List<SharedRemoteScannedFolder> folders,
   ) {
+    final localServer = kIsWeb && provider.activeHost != null &&
+        Uri.parse(provider.activeHost!.baseUrl).origin == Uri.base.origin;
     if (provider.isInitializing) {
       return const Center(child: AdaptiveMediaActivityIndicator());
     }
@@ -1638,11 +1658,52 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
     if (folders.isEmpty) {
       return _buildEmptyManagementPlaceholder(
         context,
-        title: '远程端未添加媒体文件夹',
-        subtitle: '可点击右侧按钮添加文件夹并触发扫描。',
+        title: localServer ? '尚未添加本地媒体文件夹' : '远程端未添加媒体文件夹',
+        subtitle: localServer ? '点击“添加媒体”添加文件夹，再手动批量匹配弹幕。' : '可点击右侧按钮添加文件夹并触发扫描。',
       );
     }
 
+    // Browsed children belong to their root, rather than becoming library cards.
+    if (kIsWeb) {
+      final colors = Theme.of(context).colorScheme;
+      return ListView(
+        padding: const EdgeInsets.fromLTRB(16, 10, 16, 24),
+        children: [
+          for (final root in _buildUnifiedRemoteManagementItems(provider, folders))
+            LibraryManagementCard(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                LibraryManagementFolderRow(
+                  title: root.title,
+                  indent: 0,
+                  expanded: _expandedRemoteDirectories.containsKey(root.subtitle),
+                  loading: _loadingRemoteDirectories.contains(root.subtitle),
+                  iconColor: colors.onSurface,
+                  textColor: colors.onSurface,
+                  secondaryTextColor: colors.onSurface.withValues(alpha: 0.6),
+                  onTap: root.onOpen!,
+                  trailingActions: [TextButton(
+                    onPressed: () => _matchRemoteFolder(provider, root.subtitle),
+                    child: const Text('批量匹配弹幕'))],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(root.subtitle, style: TextStyle(fontSize: 12,
+                    color: colors.onSurface.withValues(alpha: 0.6))),
+                ),
+                Wrap(children: [for (final action in root.actions)
+                  AdaptiveMediaActionButton(label: action.label,
+                    onPressed: action.onPressed,
+                    desktopIcon: action.destructive ? Icons.delete_outline : Icons.folder_open,
+                    phoneIcon: action.destructive ? cupertino.CupertinoIcons.delete : cupertino.CupertinoIcons.folder,
+                  ),
+                ]),
+                if (_expandedRemoteDirectories.containsKey(root.subtitle))
+                  ..._buildRemoteDirectoryChildren(context, provider, root.subtitle, 1),
+              ]),
+            ),
+        ],
+      );
+    }
     return AdaptiveLibraryManagementOverview(
       items: _buildUnifiedRemoteManagementItems(provider, folders),
       viewMode: _managementViewMode,
@@ -1703,7 +1764,7 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
           ],
         ),
       );
-      if (expanded) {
+      if (expanded && !kIsWeb) {
         _appendUnifiedRemoteEntries(
           items,
           provider,
@@ -1833,6 +1894,78 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
     );
   }
 
+  Future<void> _matchRemoteFolder(SharedRemoteLibraryProvider provider, String folderPath) async {
+    try {
+      Future<List<String>> files(bool recursive) async {
+        final found = <String>[];
+        final visited = <String>{};
+        Future<void> visit(String path) async {
+          if (!visited.add(path)) return;
+          for (final entry in await provider.browseRemoteDirectory(path)) {
+            if (entry.isDirectory) {
+              if (recursive) await visit(entry.path);
+            } else if (const ['.avi', '.mkv', '.mp4', '.m4v', '.mov', '.webm', '.ts']
+                .contains(p.extension(entry.path).toLowerCase())) {
+              found.add(entry.path);
+            }
+          }
+        }
+        await visit(folderPath);
+        return found;
+      }
+      final initial = await files(true);
+      if (!mounted) return;
+      if (initial.isEmpty) { BlurSnackBar.show(context, '此目录下没有视频文件'); return; }
+      final result = await BatchDanmakuMatchDialog.show(context,
+        filePaths: initial,
+        initialSearchKeyword: p.basename(folderPath).toLowerCase().startsWith('season')
+            ? p.basename(p.dirname(folderPath)) : p.basename(folderPath));
+      if (!mounted || result == null) return;
+      final count = await provider.saveBatchDanmakuMatch(result);
+      if (!mounted) return;
+      _expandedRemoteDirectories.clear();
+      await _loadRemoteDirectory(provider, folderPath);
+      if (mounted) BlurSnackBar.show(context, '已保存 $count 集到媒体库');
+    } catch (e) {
+      if (mounted) BlurSnackBar.show(context, '批量匹配失败：$e');
+    }
+  }
+
+  Future<void> _manageAnime(SharedRemoteLibraryProvider provider,
+      SharedRemoteAnimeSummary anime, String action) async {
+    final title = anime.nameCn?.isNotEmpty == true ? anime.nameCn! : anime.name;
+    try {
+      if (action == 'match') {
+        final episodes = await provider.loadAnimeEpisodes(anime.animeId, force: true);
+        final paths = episodes.where((e) => e.fileExists)
+            .map((e) => e.originalFilePath).whereType<String>()
+            .where((path) => path.isNotEmpty).toSet().toList()..sort();
+        if (!mounted) return;
+        if (paths.isEmpty) { BlurSnackBar.show(context, '没有可重新匹配的本地文件'); return; }
+        final result = await BatchDanmakuMatchDialog.show(context,
+            filePaths: paths, initialSearchKeyword: title);
+        if (!mounted || result == null) return;
+        final count = await provider.saveBatchDanmakuMatch(result);
+        if (mounted) BlurSnackBar.show(context, '已重新匹配 $count 集，保留观看进度');
+        return;
+      }
+      final confirmed = await showDialog<bool>(context: context,
+          builder: (dialogContext) => AlertDialog(
+            title: const Text('从媒体库移除'),
+            content: Text('移除《$title》的媒体库与观看记录。观看记录无法恢复，视频文件和媒体文件夹会保留。重新匹配可再次添加。'),
+            actions: [
+              TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('取消')),
+              TextButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text('移除')),
+            ],
+          ));
+      if (!mounted || confirmed != true) return;
+      final count = await provider.removeLocalAnime(anime.animeId);
+      if (mounted) BlurSnackBar.show(context, '已移除 $count 集记录，视频文件保留');
+    } catch (e) {
+      if (mounted) BlurSnackBar.show(context, '番剧管理失败：$e');
+    }
+  }
+
   Future<void> _openAddFolderDialog(
     BuildContext context,
     SharedRemoteLibraryProvider provider,
@@ -1844,7 +1977,7 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
 
     final confirmed = await BlurLoginDialog.show(
       context,
-      title: '添加媒体文件夹（远程）',
+      title: kIsWeb ? '添加本地媒体文件夹' : '添加媒体文件夹（远程）',
       fields: const [
         LoginField(
           key: 'path',
@@ -1852,11 +1985,11 @@ class _SharedRemoteLibraryViewState extends State<SharedRemoteLibraryView>
           hint: '例如：/Volumes/Anime 或 D:\\Anime',
         ),
       ],
-      loginButtonText: '添加并扫描',
+      loginButtonText: kIsWeb ? '添加文件夹' : '添加并扫描',
       onLogin: (values) async {
         await provider.addRemoteFolder(
           folderPath: values['path'] ?? '',
-          scan: true,
+          scan: !kIsWeb,
           skipPreviouslyMatchedUnwatched: false,
         );
         final error = provider.managementErrorMessage;

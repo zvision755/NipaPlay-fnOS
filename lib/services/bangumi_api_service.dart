@@ -57,7 +57,7 @@ class BangumiApiService {
         return;
       }
       final prefs = await SharedPreferences.getInstance();
-      _accessToken = prefs.getString(_tokenKey);
+      _accessToken = kIsWeb ? null : prefs.getString(_tokenKey);
       _isLoggedIn = prefs.getBool(_isLoggedInKey) ?? false;
       loginStatusNotifier.value = _isLoggedIn;
 
@@ -228,6 +228,19 @@ class BangumiApiService {
   /// 保存访问令牌
   static Future<Map<String, dynamic>> saveAccessToken(String token) async {
     try {
+      if (kIsWeb) {
+        final uri = WebRemoteAccessService.apiUri('/api/bangumi/login');
+        if (uri == null) return {'success': false, 'message': '本地服务不可用'};
+        final response = await http.post(uri,
+            headers: {'Content-Type': 'application/json'},
+            body: json.encode({'token': token}));
+        if (response.statusCode != 200) {
+          return {'success': false, 'message': 'Bangumi 授权请求失败 (${response.statusCode})'};
+        }
+        final result = json.decode(response.body) as Map<String, dynamic>;
+        if (result['success'] == true) await _syncLoginStatusFromServer();
+        return result;
+      }
       // 验证Token有效性
       final baseUrl = await getBaseUrl();
       final response = await http.get(
@@ -281,6 +294,15 @@ class BangumiApiService {
   /// 清除访问令牌
   static Future<Map<String, dynamic>> clearAccessToken() async {
     try {
+      if (kIsWeb) {
+        final uri = WebRemoteAccessService.apiUri('/api/bangumi/logout');
+        if (uri == null) return {'success': false, 'message': '本地服务不可用'};
+        final response = await http.post(uri);
+        if (response.statusCode != 200) {
+          return {'success': false, 'message': '清除 Bangumi 授权失败'};
+        }
+        await _syncLoginStatusFromServer();
+      }
       _accessToken = null;
       _userInfo = null;
       _isLoggedIn = false;

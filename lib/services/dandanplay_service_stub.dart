@@ -271,6 +271,10 @@ class DandanplayService {
   }
 
   static Future<void> loadToken() async {
+    if (kIsWeb) {
+      _token = null;
+      return;
+    }
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('dandanplay_token');
     if (_token != null && _token!.isNotEmpty) {
@@ -311,6 +315,7 @@ class DandanplayService {
   }
 
   static Future<void> saveToken(String token) async {
+    if (kIsWeb) return; // Browser uses the server's account session.
     if (token.isEmpty) return;
     if (_token != token) {
       _clearBangumiDetailsCache();

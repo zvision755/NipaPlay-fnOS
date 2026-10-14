@@ -125,6 +125,8 @@ class ScanService with ChangeNotifier {
   // _lastScannedDirectoryPickerPathKey will likely remain in UI as it's picker-specific
 
   List<String> _scannedFolders = [];
+  Future<void> _foldersLoaded = Future.value();
+  Future<void> get foldersReady => _foldersLoaded;
   List<String> get scannedFolders => List.unmodifiable(_scannedFolders);
 
   // 文件hash缓存由 Rust 扫描结果维护，用于精确定位新增、修改、删除文件。
@@ -193,7 +195,7 @@ class ScanService with ChangeNotifier {
   ScanService() : _completedFilesProcessor = _processCompletedFiles {
     // 媒体文件夹列表从 SharedPreferences 异步加载，
     // 保留这个 Future，等它加载完成后再触发启动智能刷新。
-    final foldersLoaded = _loadScannedFolders();
+    final foldersLoaded = _foldersLoaded = _loadScannedFolders();
     _loadSubFolderHashCache();
     // 启动时自动检测变化
     _performStartupChangeDetection();
@@ -1018,6 +1020,7 @@ class ScanService with ChangeNotifier {
   }
 
   Future<void> addScannedFolder(String folderPath) async {
+    await _foldersLoaded;
     if (kIsWeb) {
       _updateScanMessage("Web版不支持扫描本地媒体库。");
       return;

@@ -21,6 +21,7 @@ import 'package:nipaplay/utils/subtitle_language_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nipaplay/models/emby_media_selection.dart';
 import 'package:nipaplay/services/emby_player_menu_selection.dart';
+import 'web_subtitle_tracks_panel.dart';
 
 class SubtitleTracksMenu extends StatefulWidget {
   final VoidCallback onClose;
@@ -727,6 +728,8 @@ class _SubtitleTracksMenuState extends State<SubtitleTracksMenu> {
   Widget build(BuildContext context) {
     return Consumer<VideoPlayerState>(
       builder: (context, videoState, child) {
+        if (kIsWeb) return WebSubtitleTracksPanel(videoState: videoState,
+          onClose: widget.onClose, onHoverChanged: widget.onHoverChanged);
         final menuColors = PlayerMenuTheme.colorsOf(context);
         // Access SubtitleManager through VideoPlayerState
         final subtitleManager = videoState.subtitleManager;

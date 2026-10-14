@@ -96,14 +96,12 @@ class DandanplayService {
 
   static String _maskToken(String? token) {
     if (token == null || token.isEmpty) return '(empty)';
-    if (token.length <= 8) return '***';
-    return '${token.substring(0, 4)}...${token.substring(token.length - 4)}';
+    return '[redacted]';
   }
 
-  static String _previewBody(String body, {int maxLength = 280}) {
-    final normalized = body.replaceAll(RegExp(r'\s+'), ' ').trim();
-    if (normalized.length <= maxLength) return normalized;
-    return '${normalized.substring(0, maxLength)}...(truncated)';
+  static String _previewBody(String body) {
+    // Login renewal responses can contain bearer credentials.
+    return "[redacted response body]";
   }
 
   static bool _allowContainsMethod(String? allowHeader, String method) {
@@ -2677,11 +2675,9 @@ class DandanplayService {
       );
 
       debugPrint('[弹弹play服务] 获取WebToken响应: ${response.statusCode}');
-      debugPrint('[弹弹play服务] 获取WebToken响应内容: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        debugPrint('[弹弹play服务] WebToken解析后数据: $data');
         debugPrint('[弹弹play服务] WebToken获取成功');
         return data;
       } else {
@@ -2767,14 +2763,11 @@ class DandanplayService {
 
       // 1. 获取用于账号注销的WebToken
       final webTokenData = await getWebToken(business: 'deleteAccount');
-      debugPrint('[弹弹play服务] 获取到的WebToken数据: $webTokenData');
 
       // 检查数据结构和webToken字段
       final webToken = webTokenData['webToken'];
-      debugPrint('[弹弹play服务] 提取的webToken: $webToken');
 
       if (webToken == null || webToken.toString().isEmpty) {
-        debugPrint('[弹弹play服务] WebToken为空或null，完整响应数据: $webTokenData');
         throw Exception('获取账号注销WebToken失败：响应中没有webToken字段');
       }
 
@@ -2782,7 +2775,6 @@ class DandanplayService {
       final deleteAccountUrl =
           '${await getAccountApiBaseUrl()}/api/v2/oauth/deleteAccount?webToken=$webToken';
 
-      debugPrint('[弹弹play服务] 账号注销URL: $deleteAccountUrl');
 
       return deleteAccountUrl;
     } catch (e) {
@@ -2803,10 +2795,8 @@ class DandanplayService {
       // Bangumi管理页要求使用 oauth_bangumi 业务标识获取WebToken
       final webTokenData = await getWebToken(business: 'oauth_bangumi');
       final webToken = webTokenData['webToken']?.toString();
-      debugPrint('[弹弹play服务] Bangumi管理页WebToken: $webToken');
 
       if (webToken == null || webToken.isEmpty) {
-        debugPrint('[弹弹play服务] Bangumi管理页WebToken为空，完整响应: $webTokenData');
         throw Exception('获取Bangumi管理页WebToken失败：响应中没有webToken字段');
       }
 
@@ -2814,7 +2804,6 @@ class DandanplayService {
         '${await getAccountApiBaseUrl()}/api/v2/oauthprovider/bangumi/manage',
       ).replace(queryParameters: {'webToken': webToken});
       final manageUrl = manageUri.toString();
-      debugPrint('[弹弹play服务] Bangumi管理页URL: $manageUrl');
       return manageUrl;
     } catch (e) {
       debugPrint('[弹弹play服务] 打开Bangumi管理页流程出错: $e');

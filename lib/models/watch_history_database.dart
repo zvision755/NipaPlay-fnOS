@@ -76,7 +76,9 @@ class WatchHistoryDatabase {
     // 使用StorageService获取正确的存储目录
     final io.Directory storageDir =
         await StorageService.getAppStorageDirectory();
-    final String dbPath = path.join(storageDir.path, _dbName);
+    // A relative path makes sqflite resolve its platform default directory,
+    // which requires a GUI plugin even in the isolated server engine.
+    final String dbPath = path.join(storageDir.absolute.path, _dbName);
 
     // 确保目录存在
     final dbDir = io.Directory(path.dirname(dbPath));

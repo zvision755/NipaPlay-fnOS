@@ -40,6 +40,8 @@ class WebApiService {
     _router.get('/bangumi/calendar', handleBangumiCalendarRequest);
     _router.get('/bangumi/detail/<id>', handleBangumiDetailRequest);
     _router.get('/bangumi/login_status', handleBangumiLoginStatusRequest);
+    _router.post('/bangumi/login', handleBangumiLoginRequest);
+    _router.post('/bangumi/logout', handleBangumiLogoutRequest);
     _router.get('/danmaku/video_info', handleVideoInfoRequest);
     _router.post('/danmaku/match', handleDanmakuMatchRequest);
     _router.get('/danmaku/load', handleDanmakuLoadRequest);
@@ -375,6 +377,30 @@ class WebApiService {
     } catch (e) {
       return Response.internalServerError(body: 'Error during login: $e');
     }
+  }
+
+  Future<Response> handleBangumiLoginRequest(Request request) async {
+    try {
+      final data = json.decode(await request.readAsString());
+      final token = data is Map ? data['token'] : null;
+      if (token is! String || token.trim().isEmpty) {
+        return Response.badRequest(body: 'Bangumi token is required');
+      }
+      await BangumiApiService.initialize();
+      final result = await BangumiApiService.saveAccessToken(token.trim());
+      return Response.ok(json.encode(result),
+          headers: {'Content-Type': 'application/json; charset=utf-8'});
+    } on FormatException {
+      return Response.badRequest(body: 'Invalid JSON');
+    } catch (_) {
+      return Response.internalServerError(body: 'Bangumi login failed');
+    }
+  }
+
+  Future<Response> handleBangumiLogoutRequest(Request request) async {
+    final result = await BangumiApiService.clearAccessToken();
+    return Response.ok(json.encode(result),
+        headers: {'Content-Type': 'application/json; charset=utf-8'});
   }
 
   Future<Response> handleLogoutRequest(Request request) async {

@@ -156,6 +156,19 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
   }
 
   // 设置外部字幕并更新路径
+  void activateWebSubtitle(
+      String path, List<Map<String, dynamic>> entries, String displayName) {
+    _subtitleManager.activateParsedSubtitle(path, entries,
+        displayName: displayName);
+    _notifyListeners();
+  }
+
+  void disableWebSubtitle() {
+    unawaited(WebAssSubtitleRenderer.detach());
+    _subtitleManager.clearExternalSubtitle();
+    _notifyListeners();
+  }
+
   void setExternalSubtitle(String path, {bool isManualSetting = false}) {
     _subtitleManager.setExternalSubtitle(path,
         isManualSetting: isManualSetting);
@@ -234,8 +247,7 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
   }
 
   /// 某条字幕的水平边距（逻辑像素）
-  double pathSubtitleMarginX(String path) =>
-      _subtitleManager.pathMarginX(path);
+  double pathSubtitleMarginX(String path) => _subtitleManager.pathMarginX(path);
 
   void setPathSubtitleMarginX(String path, double marginX) {
     _subtitleManager.setPathMarginX(path, marginX);
@@ -306,7 +318,8 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
   // 加载底部弹幕屏蔽设置
   Future<void> _loadBlockBottomDanmaku() async {
     final prefs = await SharedPreferences.getInstance();
-    _blockBottomDanmaku = prefs.getBool(SettingsKeys.blockBottomDanmaku) ?? false;
+    _blockBottomDanmaku =
+        prefs.getBool(SettingsKeys.blockBottomDanmaku) ?? false;
     _notifyListeners();
   }
 
@@ -323,7 +336,8 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
   // 加载滚动弹幕屏蔽设置
   Future<void> _loadBlockScrollDanmaku() async {
     final prefs = await SharedPreferences.getInstance();
-    _blockScrollDanmaku = prefs.getBool(SettingsKeys.blockScrollDanmaku) ?? false;
+    _blockScrollDanmaku =
+        prefs.getBool(SettingsKeys.blockScrollDanmaku) ?? false;
     _notifyListeners();
   }
 
@@ -429,15 +443,16 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
 
   Future<void> _loadSpoilerAiSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    final storedUseCustomKey = prefs.getBool(SettingsKeys.spoilerAiUseCustomKey);
+    final storedUseCustomKey =
+        prefs.getBool(SettingsKeys.spoilerAiUseCustomKey);
     if (storedUseCustomKey != true) {
       _spoilerAiUseCustomKey = true;
       await prefs.setBool(SettingsKeys.spoilerAiUseCustomKey, true);
     } else {
       _spoilerAiUseCustomKey = true;
     }
-    _spoilerAiApiFormat =
-        _parseSpoilerAiApiFormat(prefs.getString(SettingsKeys.spoilerAiApiFormat));
+    _spoilerAiApiFormat = _parseSpoilerAiApiFormat(
+        prefs.getString(SettingsKeys.spoilerAiApiFormat));
     _spoilerAiApiUrl = prefs.getString(SettingsKeys.spoilerAiApiUrl) ?? '';
     _spoilerAiApiKey = prefs.getString(SettingsKeys.spoilerAiApiKey) ?? '';
     _spoilerAiModel = prefs.getString(SettingsKeys.spoilerAiModel) ?? 'gpt-5';
@@ -516,7 +531,8 @@ extension VideoPlayerStateSubtitles on VideoPlayerState {
     if (debugPrintResponse != null &&
         _spoilerAiDebugPrintResponse != debugPrintResponse) {
       _spoilerAiDebugPrintResponse = debugPrintResponse;
-      await prefs.setBool(SettingsKeys.spoilerAiDebugPrintResponse, debugPrintResponse);
+      await prefs.setBool(
+          SettingsKeys.spoilerAiDebugPrintResponse, debugPrintResponse);
       changed = true;
     }
 

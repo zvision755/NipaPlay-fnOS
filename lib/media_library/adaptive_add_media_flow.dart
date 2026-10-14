@@ -65,7 +65,26 @@ Future<AdaptiveAddMediaResult?> showAdaptiveAddMediaFlow(
 Future<AdaptiveAddMediaResult?> _addLocalFolder(
   BuildContext context,
 ) async {
-  if (kIsWeb) return null;
+  if (kIsWeb) {
+    final provider = context.read<SharedRemoteLibraryProvider>();
+    if (!provider.hasActiveHost) {
+      _showMessage(context, '本地媒体服务未连接，请刷新页面后重试');
+      return null;
+    }
+    final added = await BlurLoginDialog.show(context,
+      title: '添加本地媒体文件夹',
+      fields: const [LoginField(key: 'path', label: '服务端文件夹路径',
+        hint: '例如 /media/anime')],
+      loginButtonText: '添加文件夹',
+      onLogin: (values) async {
+        await provider.addRemoteFolder(folderPath: values['path'] ?? '', scan: false);
+        final error = provider.managementErrorMessage;
+        return LoginResult(success: error == null,
+          message: error ?? '文件夹已添加，可手动批量匹配弹幕');
+      });
+    if (!context.mounted || added != true) return null;
+    return const AdaptiveAddMediaResult(sectionId: MediaLibrarySectionIds.sharedManagement);
+  }
   final scanService = context.read<ScanService>();
   if (scanService.isScanning) {
     _showMessage(context, '已有扫描任务在进行中，请稍后');

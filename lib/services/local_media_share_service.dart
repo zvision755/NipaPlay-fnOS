@@ -422,13 +422,18 @@ class LocalMediaShareService {
     final rangeHeader = request.headers['range'];
 
     if (rangeHeader != null && rangeHeader.startsWith('bytes=')) {
-      final match = RegExp(r'bytes=(\d*)-(\d*)').firstMatch(rangeHeader);
+      final match = RegExp(r'^bytes=(\d*)-(\d*)$').firstMatch(rangeHeader);
       if (match != null) {
         final startStr = match.group(1);
         final endStr = match.group(2);
-        final start = startStr != null && startStr.isNotEmpty ? int.parse(startStr) : 0;
-        final end = endStr != null && endStr.isNotEmpty ? int.parse(endStr) : totalLength - 1;
-        if (start >= totalLength) {
+        final suffix = startStr!.isEmpty && endStr!.isNotEmpty
+            ? int.parse(endStr) : null;
+        final start = suffix != null ? math.max(0, totalLength - suffix)
+            : startStr.isNotEmpty ? int.parse(startStr) : 0;
+        final end = suffix != null ? totalLength - 1
+            : endStr != null && endStr.isNotEmpty ? int.parse(endStr) : totalLength - 1;
+        if (start >= totalLength || end < start || suffix == 0 ||
+            (startStr.isEmpty && endStr!.isEmpty)) {
           return Response(
             HttpStatus.requestedRangeNotSatisfiable,
             headers: {
@@ -438,7 +443,7 @@ class LocalMediaShareService {
         }
         final adjustedEnd = end >= totalLength ? totalLength - 1 : end;
         final chunkSize = adjustedEnd - start + 1;
-        final stream = headOnly ? null : file.openRead(start, adjustedEnd + 1);
+        final stream = headOnly ? const Stream<List<int>>.empty() : file.openRead(start, adjustedEnd + 1);
         return Response(
           HttpStatus.partialContent,
           body: stream,
@@ -454,7 +459,7 @@ class LocalMediaShareService {
       }
     }
 
-    final stream = headOnly ? null : file.openRead();
+    final stream = headOnly ? const Stream<List<int>>.empty() : file.openRead();
     return Response.ok(
       stream,
       headers: {
@@ -581,7 +586,7 @@ class LocalMediaShareService {
     final contentType = determineContentType(subtitleFile.path);
     final contentDisposition =
         _buildContentDispositionHeader(p.basename(subtitleFile.path));
-    final stream = headOnly ? null : subtitleFile.openRead();
+    final stream = headOnly ? const Stream<List<int>>.empty() : subtitleFile.openRead();
 
     return Response.ok(
       stream,
@@ -805,13 +810,18 @@ class LocalMediaShareService {
     final rangeHeader = request.headers['range'];
 
     if (rangeHeader != null && rangeHeader.startsWith('bytes=')) {
-      final match = RegExp(r'bytes=(\d*)-(\d*)').firstMatch(rangeHeader);
+      final match = RegExp(r'^bytes=(\d*)-(\d*)$').firstMatch(rangeHeader);
       if (match != null) {
         final startStr = match.group(1);
         final endStr = match.group(2);
-        final start = startStr != null && startStr.isNotEmpty ? int.parse(startStr) : 0;
-        final end = endStr != null && endStr.isNotEmpty ? int.parse(endStr) : totalLength - 1;
-        if (start >= totalLength) {
+        final suffix = startStr!.isEmpty && endStr!.isNotEmpty
+            ? int.parse(endStr) : null;
+        final start = suffix != null ? math.max(0, totalLength - suffix)
+            : startStr.isNotEmpty ? int.parse(startStr) : 0;
+        final end = suffix != null ? totalLength - 1
+            : endStr != null && endStr.isNotEmpty ? int.parse(endStr) : totalLength - 1;
+        if (start >= totalLength || end < start || suffix == 0 ||
+            (startStr.isEmpty && endStr!.isEmpty)) {
           return Response(
             HttpStatus.requestedRangeNotSatisfiable,
             headers: {
@@ -821,7 +831,7 @@ class LocalMediaShareService {
         }
         final adjustedEnd = end >= totalLength ? totalLength - 1 : end;
         final chunkSize = adjustedEnd - start + 1;
-        final stream = headOnly ? null : audioFile.openRead(start, adjustedEnd + 1);
+        final stream = headOnly ? const Stream<List<int>>.empty() : audioFile.openRead(start, adjustedEnd + 1);
         return Response(
           HttpStatus.partialContent,
           body: stream,
@@ -837,7 +847,7 @@ class LocalMediaShareService {
       }
     }
 
-    final stream = headOnly ? null : audioFile.openRead();
+    final stream = headOnly ? const Stream<List<int>>.empty() : audioFile.openRead();
     return Response.ok(
       stream,
       headers: {
@@ -874,7 +884,7 @@ class LocalMediaShareService {
     final contentType = determineContentType(fontFile.path);
     final contentDisposition =
         _buildContentDispositionHeader(p.basename(fontFile.path));
-    final stream = headOnly ? null : fontFile.openRead();
+    final stream = headOnly ? const Stream<List<int>>.empty() : fontFile.openRead();
 
     return Response.ok(
       stream,

@@ -11,17 +11,18 @@ class LocalMediaShareApi {
     router.get('/animes', _handleListAnimes);
     router.get('/animes/<animeId|[0-9]+>', _handleAnimeDetail);
     router.get('/history', _handleWatchHistory);
-    router.get('/episodes/<shareId>/stream', _handleEpisodeStream);
+    // Explicit HEAD must precede the automatic HEAD route registered by GET.
     router.add('HEAD', '/episodes/<shareId>/stream', _handleEpisodeStreamHead);
+    router.get('/episodes/<shareId>/stream', _handleEpisodeStream);
     router.get('/episodes/<shareId>/subtitles', _handleEpisodeSubtitles);
-    router.get('/episodes/<shareId>/subtitle', _handleEpisodeSubtitleStream);
     router.add('HEAD', '/episodes/<shareId>/subtitle', _handleEpisodeSubtitleStreamHead);
+    router.get('/episodes/<shareId>/subtitle', _handleEpisodeSubtitleStream);
     router.get('/episodes/<shareId>/audio', _handleEpisodeExternalAudio);
-    router.get('/episodes/<shareId>/audio_file', _handleEpisodeAudioFileStream);
     router.add('HEAD', '/episodes/<shareId>/audio_file', _handleEpisodeAudioFileStreamHead);
+    router.get('/episodes/<shareId>/audio_file', _handleEpisodeAudioFileStream);
     router.get('/episodes/<shareId>/fonts', _handleEpisodeFonts);
-    router.get('/episodes/<shareId>/font', _handleEpisodeFontStream);
     router.add('HEAD', '/episodes/<shareId>/font', _handleEpisodeFontStreamHead);
+    router.get('/episodes/<shareId>/font', _handleEpisodeFontStream);
     router.post('/episodes/<shareId>/progress', _handleUpdateEpisodeProgress);
     router.post('/episodes/<shareId>/thumbnail', _handleUpdateEpisodeThumbnail);
   }

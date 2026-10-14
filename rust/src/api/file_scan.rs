@@ -219,7 +219,7 @@ fn is_video_file(path: &Path) -> bool {
         .and_then(|extension| extension.to_str())
         .map(|extension| {
             let extension = extension.to_ascii_lowercase();
-            extension == "mp4" || extension == "mkv"
+            matches!(extension.as_str(), "mp4" | "mkv" | "avi")
         })
         .unwrap_or(false)
 }
@@ -337,8 +337,10 @@ mod tests {
         let root = make_temp_dir();
         let keep_path = root.join("keep.mkv");
         let new_path = root.join("new.mp4");
+        let avi_path = root.join("legacy.AVI");
         write_file(&keep_path, b"old");
         write_file(&new_path, b"new");
+        write_file(&avi_path, b"legacy");
 
         let snapshot = scan_video_files(path_to_dart_string(&root)).unwrap();
         let keep_entry = snapshot
@@ -362,9 +364,9 @@ mod tests {
         )
         .unwrap();
 
-        assert_eq!(diff.current_count, 2);
+        assert_eq!(diff.current_count, 3);
         assert_eq!(diff.cached_count, 2);
-        assert_eq!(diff.new_files, vec!["new.mp4"]);
+        assert_eq!(diff.new_files, vec!["legacy.AVI", "new.mp4"]);
         assert_eq!(diff.modified_files, vec!["keep.mkv"]);
         assert_eq!(diff.deleted_files, vec!["deleted.mp4"]);
 

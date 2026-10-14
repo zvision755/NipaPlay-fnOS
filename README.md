@@ -4,7 +4,7 @@
     <img src="icons/new-icon-win.png" width="100px" alt="Icon">
   </div>
 
-# NipaPlay-Reload
+# NipaPlay-fnOS
 
 <img src="https://count.getloli.com/get/@nipaplay?theme=moebooru" alt="访问统计" />
 
@@ -33,7 +33,17 @@
 
 ---
 
-## 核心亮点
+## fnOS/Web 适配说明
+
+本仓库基于 [AimesSoft/NipaPlay-Reload](https://github.com/AimesSoft/NipaPlay-Reload) 的 `v1.11.9`（上游提交 `c26e1f9947e3091b400b07ec2d5558a617bb38ad`），保留原 Flutter 应用及媒体库、弹幕、账号业务实现，增加浏览器运行与 Linux Docker 服务端适配。上游项目版权和许可证继续适用；本仓库不代表上游官方发布。
+
+macOS OrbStack 已验证本地媒体、AVI 播放、弹幕和 ASS 特效。Windows Docker Desktop / Jellyfin 联调仍待实机测试。进度记录见 [PROGRESS.md](PROGRESS.md) 与 [WEB_PORTING_REPORT.md](WEB_PORTING_REPORT.md)，Windows 部署步骤见 [docs/DOCKER.md](docs/DOCKER.md)。
+
+Windows Docker Desktop 首次构建前，在 PowerShell 项目目录运行 `.\scripts\prepare_fnos_windows.ps1`，设置宿主机媒体目录 `NIPAPLAY_MEDIA_DIR`，再执行 `docker compose build` / `docker compose up -d`。浏览器本地目录填写 `/media/anime`。Jellyfin 请填 Windows 局域网可达的 IP 与端口；不要填 `localhost`。
+
+---
+
+## 上游 NipaPlay-Reload 项目介绍
 
 NipaPlay 不仅仅是一个播放器，更是您的二次元媒体管家：
 

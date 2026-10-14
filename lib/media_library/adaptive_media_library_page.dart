@@ -254,6 +254,7 @@ class _AdaptiveMediaLibraryPageState extends State<AdaptiveMediaLibraryPage> {
               : _connectionsInitialized &&
                   SMBService.instance.connections.isNotEmpty,
           showShared: sharedProvider.hasReachableActiveHost || kIsWeb,
+          sharedIsLocalServer: kIsWeb && sharedProvider.activeHost != null && Uri.tryParse(sharedProvider.activeHost?.baseUrl ?? '')?.origin == Uri.base.origin,
           showDandanplay: dandanProvider.isConnected,
           showJellyfin: jellyfinProvider.isConnected,
           showEmby: embyProvider.isConnected,
@@ -316,6 +317,7 @@ class _AdaptiveMediaLibraryPageState extends State<AdaptiveMediaLibraryPage> {
                   : _connectionsInitialized &&
                       SMBService.instance.connections.isNotEmpty,
               showShared: sharedProvider.hasReachableActiveHost || kIsWeb,
+          sharedIsLocalServer: kIsWeb && sharedProvider.activeHost != null && Uri.tryParse(sharedProvider.activeHost?.baseUrl ?? '')?.origin == Uri.base.origin,
               showDandanplay: dandanProvider.isConnected,
               showJellyfin: jellyfinProvider.isConnected,
               showEmby: embyProvider.isConnected,

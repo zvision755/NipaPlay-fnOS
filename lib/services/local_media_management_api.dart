@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:path/path.dart' as p;
 import 'package:shelf/shelf.dart';
@@ -16,6 +17,9 @@ import 'package:nipaplay/services/webdav_service.dart';
 import 'package:nipaplay/services/smb_service.dart';
 import 'package:nipaplay/utils/media_source_utils.dart';
 import 'package:nipaplay/utils/subtitle_file_utils.dart';
+import 'package:nipaplay/utils/subtitle_parser.dart';
+import 'browser_media_service.dart';
+import 'batch_danmaku_match_persistence.dart';
 
 class _RemoteScrapeCandidate {
   final String filePath;
@@ -62,11 +66,17 @@ class LocalMediaManagementApi {
     router.post('/smb/scan', _handleScanSMB);
 
     router.get('/browse', _handleBrowse);
-    router.get('/stream', _handleStream);
+    router.post('/batch_match', _handleBatchMatch);
+    router.post('/animes/<animeId>/remove', _handleRemoveAnime);
+    // Explicit HEAD must precede the automatic HEAD route registered by GET.
     router.add('HEAD', '/stream', _handleStreamHead);
+    router.get('/stream', _handleStream);
     router.get('/subtitles', _handleSubtitles);
-    router.get('/subtitle', _handleSubtitleStream);
+    router.get('/web_subtitles', _handleWebSubtitles);
+    router.get('/web_subtitle', _handleWebSubtitle);
+    router.get('/web_subtitle_ass', _handleWebSubtitleAss);
     router.add('HEAD', '/subtitle', _handleSubtitleStreamHead);
+    router.get('/subtitle', _handleSubtitleStream);
 
     router.get('/scan/status', _handleScanStatus);
     router.post('/scan/rescan', _handleRescanAll);
@@ -74,7 +84,69 @@ class LocalMediaManagementApi {
 
   final Router router = Router();
 
+  Future<Response> _handleRemoveAnime(Request request, String rawId) async {
+    final animeId = int.tryParse(rawId);
+    if (animeId == null || animeId <= 0) return _jsonError(400, '番剧 ID 无效');
+    await _scanService.foldersReady;
+    final items = await WatchHistoryManager.getAllItemsForAnime(animeId);
+    if (items.any((item) => !_isAllowedPath(item.filePath))) {
+      return _jsonError(409, '此番剧含其他媒体源记录，请在对应媒体源管理');
+    }
+    // Original removal handles SQLite, memory cache and deletion tombstones.
+    // Media files and registered folders are never deleted.
+    final removed = await WatchHistoryManager.removeHistoryByAnimeId(animeId);
+    await ServiceProvider.watchHistoryProvider.refresh();
+    return _jsonOk({'success': true, 'data': {'removed': removed}});
+  }
+
   ScanService get _scanService => ServiceProvider.scanService;
+
+  Future<Response> _handleBatchMatch(Request request) async {
+    try {
+      final data = jsonDecode(await request.readAsString()) as Map;
+      final animeId = data['animeId'];
+      final raw = data['mappings'];
+      if (animeId is! int || animeId <= 0 || raw is! List || raw.isEmpty) {
+        return _jsonError(400, '批量匹配结果无效');
+      }
+      await _scanService.foldersReady;
+      final mappings = <Map<String, dynamic>>[];
+      for (final entry in raw) {
+        if (entry is! Map) return _jsonError(400, '匹配项无效');
+        final mapping = Map<String, dynamic>.from(entry);
+        final path = mapping['filePath'];
+        final episodeId = mapping['episodeId'];
+        if (path is! String ||
+            !_isAllowedPath(path) ||
+            !await File(path).exists() ||
+            episodeId is! int ||
+            episodeId <= 0) {
+          return _jsonError(400, '匹配文件不在已添加的媒体目录中，或剧集无效');
+        }
+        mappings.add(mapping);
+      }
+      // Validate against the existing authenticated episode API before saving.
+      final episodes =
+          await DanmakuMatchingService.instance.getAnimeEpisodes(animeId);
+      final episodeIds = episodes.map((e) => e['episodeId']).toSet();
+      if (mappings.any((m) => !episodeIds.contains(m['episodeId']))) {
+        return _jsonError(400, '选择的剧集不属于当前番剧');
+      }
+      final count = await BatchDanmakuMatchPersistence.apply(
+          animeId: animeId,
+          animeTitle: data['animeTitle']?.toString() ?? '',
+          mappings: mappings);
+      await ServiceProvider.watchHistoryProvider.refresh();
+      return _jsonOk({
+        'success': count == mappings.length,
+        'data': {'matched': count, 'total': mappings.length},
+        if (count != mappings.length) 'message': '部分文件保存失败'
+      });
+    } catch (_) {
+      return _jsonError(500, '保存批量匹配失败，请检查账号登录及媒体目录');
+    }
+  }
+
   WebDAVService get _webdavService => WebDAVService.instance;
   SMBService get _smbService => SMBService.instance;
 
@@ -105,6 +177,7 @@ class LocalMediaManagementApi {
 
   Future<Response> _handleListFolders(Request request) async {
     try {
+      await _scanService.foldersReady;
       final folders = await _buildFolderPayload(_scanService.scannedFolders);
       final webdav = _webdavService.connections.map((c) => c.toJson()).toList();
       final smb = _smbService.connections.map((c) => c.toJson()).toList();
@@ -763,28 +836,42 @@ class LocalMediaManagementApi {
     }
 
     try {
-      final file = File(targetPath);
+      final source = File(targetPath);
+      final file = request.url.queryParameters['web'] == '1'
+          ? await BrowserMediaService.browserVideo(source)
+          : source;
       if (!await file.exists()) {
         return Response.notFound('File not found');
       }
 
       final totalLength = await file.length();
-      final contentType = _determineContentType(targetPath);
+      final contentType = _determineContentType(file.path);
       final contentDisposition =
           _buildContentDispositionHeader(p.basename(targetPath));
       final rangeHeader = request.headers['range'];
 
       if (rangeHeader != null && rangeHeader.startsWith('bytes=')) {
-        final match = RegExp(r'bytes=(\d*)-(\d*)').firstMatch(rangeHeader);
+        final match = RegExp(r'^bytes=(\d*)-(\d*)$').firstMatch(rangeHeader);
         if (match != null) {
           final startStr = match.group(1);
           final endStr = match.group(2);
-          final start =
-              startStr != null && startStr.isNotEmpty ? int.parse(startStr) : 0;
-          final end = endStr != null && endStr.isNotEmpty
+          final suffix = startStr!.isEmpty && endStr!.isNotEmpty
               ? int.parse(endStr)
-              : totalLength - 1;
-          if (start >= totalLength) {
+              : null;
+          final start = suffix != null
+              ? math.max(0, totalLength - suffix)
+              : startStr.isNotEmpty
+                  ? int.parse(startStr)
+                  : 0;
+          final end = suffix != null
+              ? totalLength - 1
+              : endStr != null && endStr.isNotEmpty
+                  ? int.parse(endStr)
+                  : totalLength - 1;
+          if (start >= totalLength ||
+              end < start ||
+              suffix == 0 ||
+              (startStr.isEmpty && endStr!.isEmpty)) {
             return Response(
               HttpStatus.requestedRangeNotSatisfiable,
               headers: {
@@ -795,8 +882,9 @@ class LocalMediaManagementApi {
           }
           final adjustedEnd = end >= totalLength ? totalLength - 1 : end;
           final chunkSize = adjustedEnd - start + 1;
-          final stream =
-              headOnly ? null : file.openRead(start, adjustedEnd + 1);
+          final stream = headOnly
+              ? const Stream<List<int>>.empty()
+              : file.openRead(start, adjustedEnd + 1);
           return Response(
             HttpStatus.partialContent,
             body: stream,
@@ -812,7 +900,8 @@ class LocalMediaManagementApi {
         }
       }
 
-      final stream = headOnly ? null : file.openRead();
+      final stream =
+          headOnly ? const Stream<List<int>>.empty() : file.openRead();
       return Response.ok(
         stream,
         headers: {
@@ -861,9 +950,8 @@ class LocalMediaManagementApi {
         dirFiles.add(entry);
       }
 
-      final dirNames = dirFiles
-          .map((file) => p.basename(file.path).toLowerCase())
-          .toSet();
+      final dirNames =
+          dirFiles.map((file) => p.basename(file.path).toLowerCase()).toSet();
 
       for (final entry in dirFiles) {
         final filePath = entry.path;
@@ -892,7 +980,8 @@ class LocalMediaManagementApi {
 
         final subtitleBaseName =
             p.basenameWithoutExtension(filePath).toLowerCase();
-        final isLikelyMatch = subtitleMatchesVideo(videoBaseName, subtitleBaseName);
+        final isLikelyMatch =
+            subtitleMatchesVideo(videoBaseName, subtitleBaseName);
 
         items.add({
           'name': p.basename(filePath),
@@ -972,7 +1061,8 @@ class LocalMediaManagementApi {
       final contentType = _determineContentType(subtitleFile.path);
       final contentDisposition =
           _buildContentDispositionHeader(p.basename(subtitleFile.path));
-      final stream = headOnly ? null : subtitleFile.openRead();
+      final stream =
+          headOnly ? const Stream<List<int>>.empty() : subtitleFile.openRead();
 
       return Response.ok(
         stream,
@@ -986,6 +1076,102 @@ class LocalMediaManagementApi {
       );
     } catch (e) {
       return Response.internalServerError(body: '字幕读取失败: $e');
+    }
+  }
+
+  Future<Response> _handleWebSubtitles(Request request) async {
+    final external = await _handleSubtitles(request);
+    if (external.statusCode != 200) return external;
+    try {
+      final data = jsonDecode(await external.readAsString()) as Map;
+      final path = request.url.queryParameters['path']!;
+      final items = <Map<String, dynamic>>[
+        for (final entry in data['items'] as List)
+          if (entry['isLikelyMatch'] == true)
+            {...Map<String, dynamic>.from(entry), 'source': 'external'},
+      ];
+      items.addAll(await BrowserMediaService.subtitleTracks(path));
+      return _jsonOk({'success': true, 'items': items});
+    } catch (e) {
+      return _jsonError(500, '读取字幕轨道失败: $e');
+    }
+  }
+
+  Future<Response> _handleWebSubtitle(Request request) async {
+    final path = request.url.queryParameters['path'];
+    if (path == null || !_isAllowedPath(p.normalize(path))) {
+      return _jsonError(403, '路径不允许访问');
+    }
+    try {
+      final index = int.tryParse(request.url.queryParameters['index'] ?? '');
+      List<SubtitleEntry> entries;
+      if (index != null) {
+        entries = SubtitleParser.parseSrt(
+            await BrowserMediaService.extractSubtitle(path, index));
+      } else {
+        final file = await _resolveSubtitleFileByName(
+            videoPath: path,
+            subtitleName: request.url.queryParameters['name'] ?? '');
+        if (file == null) return _jsonError(404, '字幕不存在');
+        entries = (await SubtitleParser.parseSubtitleFile(file.path)).entries;
+      }
+      return _jsonOk({
+        'success': true,
+        'entries': [
+          for (final entry in entries)
+            {
+              'startTimeMs': entry.startTimeMs,
+              'endTimeMs': entry.endTimeMs,
+              'content': entry.content,
+              'style': entry.style
+            }
+        ]
+      });
+    } catch (e) {
+      return _jsonError(500, '读取字幕失败: $e');
+    }
+  }
+
+  Future<Response> _handleWebSubtitleAss(Request request) async {
+    final path = request.url.queryParameters['path'];
+    if (path == null || !_isAllowedPath(p.normalize(path))) {
+      return _jsonError(403, '路径不允许访问');
+    }
+    try {
+      final index = int.tryParse(request.url.queryParameters['index'] ?? '');
+      String content;
+      if (index != null) {
+        final tracks = await BrowserMediaService.subtitleTracks(path);
+        final matchingTracks = tracks.where((item) => item['index'] == index);
+        if (matchingTracks.isEmpty ||
+            !const ['ass', 'ssa'].contains(matchingTracks.first['codec'])) {
+          return _jsonError(400, '所选内封字幕不是 ASS/SSA 格式');
+        }
+        content = await BrowserMediaService.extractSubtitle(path, index,
+            preserveAss: true);
+      } else {
+        final file = await _resolveSubtitleFileByName(
+          videoPath: path,
+          subtitleName: request.url.queryParameters['name'] ?? '',
+        );
+        if (file == null ||
+            !const ['.ass', '.ssa']
+                .contains(p.extension(file.path).toLowerCase())) {
+          return _jsonError(404, 'ASS/SSA 字幕不存在');
+        }
+        final decoded = await SubtitleParser.decodeSubtitleFile(file.path);
+        if (decoded == null) return _jsonError(422, '无法解码 ASS/SSA 字幕');
+        content = decoded.text;
+      }
+      if (!content.trimLeft().startsWith('[Script Info]')) {
+        return _jsonError(422, '字幕内容不是有效的 ASS/SSA 文件');
+      }
+      return Response.ok(content, headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache'
+      });
+    } catch (_) {
+      return _jsonError(500, '读取 ASS/SSA 字幕失败');
     }
   }
 
