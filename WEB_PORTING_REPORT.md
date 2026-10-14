@@ -7,7 +7,8 @@
 - 用户确认 Mac 本地文件夹媒体库测试通过。OrbStack linux/arm64 Docker 版已真实播放 AVI、加载弹幕与 ASS 特效；Windows Docker Desktop / linux/amd64 与 Windows 上的 Jellyfin 尚未实际测试。
 - Windows Docker 准备脚本和 PowerShell 流程已加入仓库；本地目录通过 `NIPAPLAY_MEDIA_DIR` 映射为容器 `/media/anime`。Windows 详细步骤见 `docs/DOCKER.md` 中的“Windows Docker 与 Jellyfin 联调”。
 - Jellyfin Web 配置校验在容器执行，Web 播放器也会直接请求 Jellyfin；Windows Jellyfin 应填写双方都可访问的局域网 IP 和端口。CORS、防火墙及真实服务器登录需在 Windows 实机验收。
-- 本轮 GitHub 未上传。只有 AimesSoft 原版 `upstream`，个人 GitHub 账号下没有现成的 NipaPlay-fnOS 仓库；未创建仓库、未提交、未推送。需确认推送目标和作者身份后再完成。
+- 已按用户授权创建公开 fork [zvision755/NipaPlay-fnOS](https://github.com/zvision755/NipaPlay-fnOS)，描述和 README 标明上游 AimesSoft/NipaPlay-Reload v1.11.9。适配提交 `4992a8c2fa3c498b7082a505b64d689910eb415c` 保留原 tag 为父提交，Author/Committer 均为已确认身份 `Ziwei Zhao <199458887+zvision755@users.noreply.github.com>`。
+- 适配分支尚未上传：GitHub 拒绝 OAuth HTTPS 推送，因为当前授权缺少 `workflow` scope，涉及 `.github/workflows/main.yml`；本机没有可用 SSH 身份。授权后目标分支为 `fnos/web-port-v1.11.9`。Windows 取代码命令：`git clone --branch fnos/web-port-v1.11.9 https://github.com/zvision755/NipaPlay-fnOS.git`（推送完成后可用）。
 
 ## 结论与本轮边界
 
