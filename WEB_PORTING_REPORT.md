@@ -8,7 +8,7 @@
 - Windows Docker 准备脚本和 PowerShell 流程已加入仓库；本地目录通过 `NIPAPLAY_MEDIA_DIR` 映射为容器 `/media/anime`。Windows 详细步骤见 `docs/DOCKER.md` 中的“Windows Docker 与 Jellyfin 联调”。
 - Jellyfin Web 配置校验在容器执行，Web 播放器也会直接请求 Jellyfin；Windows Jellyfin 应填写双方都可访问的局域网 IP 和端口。CORS、防火墙及真实服务器登录需在 Windows 实机验收。
 - 已按用户授权创建公开 fork [zvision755/NipaPlay-fnOS](https://github.com/zvision755/NipaPlay-fnOS)，描述和 README 标明上游 AimesSoft/NipaPlay-Reload v1.11.9。适配提交 `4992a8c2fa3c498b7082a505b64d689910eb415c` 保留原 tag 为父提交，Author/Committer 均为已确认身份 `Ziwei Zhao <199458887+zvision755@users.noreply.github.com>`。
-- 适配分支尚未上传：SSH 公钥认证已通过（GitHub 返回 `Hi zvision755!`），但当前执行环境的 SSH 转发在 `git-upload-pack` 传输时关闭连接；HTTPS 推送则因 OAuth 授权缺少 `workflow` scope 被 GitHub 拒绝，涉及 `.github/workflows/main.yml`。Mac Terminal 可尝试：`cd ~/Projects/NipaPlay-fnOS && git push -u origin fnos/web-port-v1.11.9`。上传完成后 Windows 取代码命令为：`git clone --branch fnos/web-port-v1.11.9 https://github.com/zvision755/NipaPlay-fnOS.git`。
+- 适配分支已上传：[fnos/web-port-v1.11.9](https://github.com/zvision755/NipaPlay-fnOS/tree/fnos/web-port-v1.11.9)。2026-10-15 用户 HTTPS/PAT 推送输出 `curl 18 transfer closed with outstanding read data remaining`，但随后独立 `git ls-remote` 确认远端提交为 `d4cae817c5c4b051ff5a2f7733b188afcd0fa8e1`，与本地 HEAD 一致；实际成功，断开的是回执。早期 OAuth 的 `workflow` scope 拒绝与 SSH 连接关闭保留为历史诊断，SSH 网络根因未确认。Windows 可执行：`git clone --branch fnos/web-port-v1.11.9 https://github.com/zvision755/NipaPlay-fnOS.git`。
 
 ## 结论与本轮边界
 

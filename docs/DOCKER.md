@@ -15,7 +15,7 @@ scripts/fnos_compose.sh build
 
 Flutter 固定 3.44.6 的 revision，Dart 3.12.2；Rust 固定 1.93.0；基础镜像固定多架构 manifest digest。Flutter Linux 引擎从 `storage.flutter-io.cn` 镜像下载，TLS 校验保留。使用官方 SDK 的公开源码快照与本项目的公开 Pub 缓存，解决容器 Git HTTPS 下载失败；Docker 不复制整个 `.porting`。Pub 离线解析严格检查 `pubspec.lock`；Rust `cargo build --locked` 和扫描测试在构建阶段执行。
 
-`healthz` 返回构建时 Git HEAD 和工作区摘要，未提交适配修改不能被表述为上游 tag 本身。当前镜像由未提交工作区构建；发布前需要确认 Git 作者身份、提交适配改动，再从该确定提交构建。摘要不会让变化中的工作区自动变成可重现版本。基础 apt 仓库未固定快照，因此目前不保证字节级镜像一致。
+`healthz` 返回构建时 Git HEAD 和工作区摘要，未提交适配修改不能被表述为上游 tag 本身。Mac 现有测试镜像在首次提交前构建；当前适配源码已经提交并上传，Windows 应从适配分支构建，并记录使用的 `git rev-parse HEAD`。摘要不会让变化中的工作区自动变成可重现版本。基础 apt 仓库未固定快照，因此目前不保证字节级镜像一致。
 
 ## 数据与启动
 
@@ -39,6 +39,8 @@ scripts/fnos_compose.sh restart app
 Windows 使用 Docker Desktop 的 Linux 容器模式。克隆仓库后，在 PowerShell 项目根目录运行一次准备脚本。它初始化 pubspec 需要的 media-kit 子模块，并在 Git 忽略的 `.porting` 下下载固定 Flutter 3.44.6 源码与 Pub 缓存，不把媒体或服务器凭据复制进构建上下文，也不需要在 Windows 安装完整 Android Studio。
 
 ```powershell
+git clone --branch fnos/web-port-v1.11.9 https://github.com/zvision755/NipaPlay-fnOS.git
+cd NipaPlay-fnOS
 .\scripts\prepare_fnos_windows.ps1
 $env:NIPAPLAY_MEDIA_DIR = 'D:\Media\Anime'
 docker volume create nipaplay-fnos-data
