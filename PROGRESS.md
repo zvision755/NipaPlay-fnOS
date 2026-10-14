@@ -2,7 +2,7 @@
 
 更新日期：2026-10-15（Asia/Shanghai）。源码已提交到本地适配分支，尚未上传适配分支；未修改真实 NAS。
 
-**GitHub 状态：** 已按用户授权创建公开 fork [zvision755/NipaPlay-fnOS](https://github.com/zvision755/NipaPlay-fnOS)，描述注明基于 AimesSoft/NipaPlay-Reload v1.11.9。适配提交 `4992a8c2fa3c498b7082a505b64d689910eb415c` 的作者与提交者均为已确认身份 `Ziwei Zhao <199458887+zvision755@users.noreply.github.com>`。推送被 GitHub 拒绝：当前 HTTPS OAuth 授权缺少 `workflow` scope，涉及上游 `.github/workflows/main.yml`；本机没有可用 SSH 身份。代码尚未出现在远端适配分支。授权补齐后目标分支为 `fnos/web-port-v1.11.9`。
+**GitHub 状态：** 已按用户授权创建公开 fork [zvision755/NipaPlay-fnOS](https://github.com/zvision755/NipaPlay-fnOS)，描述注明基于 AimesSoft/NipaPlay-Reload v1.11.9。适配提交 `4992a8c2fa3c498b7082a505b64d689910eb415c` 的作者与提交者均为已确认身份 `Ziwei Zhao <199458887+zvision755@users.noreply.github.com>`。SSH 公钥已添加，`ssh -T` 确认 `zvision755` 身份；但当前执行环境的 SSH 转发在 Git `git-upload-pack` 会话中关闭连接。HTTPS 推送被 GitHub 拒绝，因 OAuth 授权缺少 `workflow` scope（上游 `.github/workflows/main.yml`）。适配分支尚未出现在远端；从 Mac Terminal 重试命令见报告末尾。
 
 **当前运行环境：OrbStack Docker，正式页面 http://127.0.0.1:1182/。最新结论见末尾“OrbStack 运行调整”；下方早期 1181/待登录/缺 Rust 状态仅作为过程记录。**
 
@@ -14,7 +14,7 @@
 - Jellyfin Web 连接校验由 NipaPlay Linux 容器发起，随后 Web 客户端也会直接读取 Jellyfin。Windows Jellyfin 应填容器与浏览器都能访问的 Windows 局域网 IPv4 地址/端口，不能填 localhost。实际 Docker Desktop、Windows 防火墙、CORS 与 Jellyfin 登录尚待 Windows 实机验证。
 - Windows 新建的数据卷没有 Mac Docker 数据；不会复制或上传弹弹play/Bangumi/Jellyfin 凭据，Windows 测试时须在 NipaPlay 页面本机登录。
 - 本轮未在 Windows 执行 PowerShell 脚本或 amd64 镜像构建；本机验证只有 OrbStack linux/arm64。不能把 Windows 部署或 Jellyfin 联调写成已通过。
-- 已建立个人 `origin`，保留 AimesSoft 原版 `upstream`；本地适配提交已创建。GitHub 因 OAuth token 缺少 `workflow` scope 拒绝分支推送，详见本文件开头。没有推送到上游。
+- 已建立个人 `origin`，保留 AimesSoft 原版 `upstream`；本地适配提交已创建。SSH 账号验证通过，但当前执行环境无法进行 Git SSH 数据传输；HTTPS OAuth token 缺少 `workflow` scope。没有推送到上游。
 
 ## 最新进度（以下覆盖早期 gate-only 测试状态）
 
